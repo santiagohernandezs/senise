@@ -1,0 +1,51 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeader from "@/components/layout/SectionHeader.astro";
+import SectionContent from "@/components/layout/SectionContent.astro";
+import Card from "@/components/card/Card.astro";
+import CardContent from "@/components/card/CardContent.astro";
+import CardTag from "@card/CardTag.astro";
+import CardIcon from "@card/CardIcon.astro";
+import Flower from "@/components/ui/svg/Flower.astro";
+
+const cardsContent = [
+  {
+    tag: "Excelencia",
+    title: "Enfocados en los detalles",
+    description:
+      "Nos guiamos por los mas altos estandares en la seleccion, analisis y seguimiento de cada oportunidad.",
+  },
+  {
+    tag: "Excelencia",
+    title: "Enfocados en los detalles",
+    description:
+      "Nos guiamos por los mas altos estandares en la seleccion, analisis y seguimiento de cada oportunidad.",
+  },
+  {
+    tag: "Excelencia",
+    title: "Enfocados en los detalles",
+    description:
+      "Nos guiamos por los mas altos estandares en la seleccion, analisis y seguimiento de cada oportunidad.",
+  },
+];
+---
+
+<Section id="values" direction="column">
+  <SectionHeader tag="nuestros valores" title="Lo que nos define">
+    <p>Nuestra cultura de trabajo exhaltan nuestros principios que tanto nos caracterizan como un agente a la medida</p>
+  </SectionHeader>
+  <SectionContent>
+    {cardsContent.map(content => (
+      <Card variant="primary" icon={Flower}>
+          <CardContent>
+            <CardTag size="sm">
+              {content.tag}
+            </CardTag>
+
+            <h3>{content.title}</h3>
+            <p>{content.description}</p>
+          </CardContent>
+        </Card>
+    ))}
+  </SectionContent>
+</Section>

@@ -1,19 +1,35 @@
 ---
 interface Props {
   variant?: "primary" | "ghost";
+  className?: string;
+  icon?: (_props: any) => any;
 }
 
-const { variant = "primary" } = Astro.props;
+const { variant = "primary", className = "", icon: Icon } = Astro.props;
 ---
 
 <div
   class:list={[
-    "flex flex-col gap-card-gap px-6 py-16 flex-1",
+    "flex flex-col gap-card-gap p-6 flex-1",
     {
       "bg-card-fill-primary border border-card-border-primary": variant === "primary",
       "bg-card-fill-ghost border border-card-border-ghost": variant === "ghost",
     },
+    className
   ]}
 >
+  {Icon && (
+    <div
+      class:list={[
+        {
+          "text-card-icon-primary": variant === "primary",
+          "text-card-icon-ghost": variant === "ghost",
+        }
+      ]}
+    >
+      <Icon />
+    </div>
+  )}
+
   <slot />
 </div>

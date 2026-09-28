@@ -1,0 +1,14 @@
+import { defineAction } from "astro:actions";
+import { z } from "astro/zod";
+
+export const server = {
+	request: defineAction({
+		accept: "form",
+		input: z.object({
+			name: z.string(),
+		}),
+		handler: async () => {
+			alert("thanks");
+		},
+	}),
+};
