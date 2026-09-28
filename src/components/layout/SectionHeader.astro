@@ -1,0 +1,18 @@
+---
+import { capitalize } from "../../utils/capitalize";
+
+interface Props {
+  tag?: string;
+  title?: string;
+}
+
+const { tag, title } = Astro.props;
+---
+
+<div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-1">
+    {tag && <p class:list={["uppercase"]}>{tag}</p>}
+    {title && <h3 class="text-4xl font-bold text-text-primary">{capitalize(title)}</h3>}
+  </div>
+  <slot/>
+</div>

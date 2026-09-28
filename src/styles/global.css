@@ -1,34 +1,65 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Public Sans', ui-sans-serif, system-ui, sans-serif;
-  
-  --animate-orbit-cw: orbit-cw 12s linear infinite;
-  --animate-orbit-ccw: orbit-ccw 8s linear infinite;
-  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
-  --animate-float: float 6s ease-in-out infinite;
+  /* ===================================================
+     1. TOKENS PRIMITIVOS (Paleta base)
+     =================================================== */
+  --color-brand-white: #F9F6F5;
+  --color-brand-brown: #41382f;
+  --color-brand-cream: #f6f4f0;
+  --color-brand-rose: #d6b8a8;
+  --color-brand-green: #2d4a3e;
 
-  @keyframes orbit-cw {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes orbit-ccw {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
-  }
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-}
+  /* ===================================================
+     2. TOKENS SEMÁNTICOS (Propósito funcional)
+     =================================================== */
+  --color-surface-accent: var(--color-brand-brown);
+  --color-surface-default: var(--color-brand-white);
+  --color-border-subtle: var(--color-neutral-200);
 
-html,
-body {
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-  background-color: #0a0a0a;
+  --color-text-primary: var(--color-brand-brown);
+  --color-text-secondary: var(--color-neutral-700);
+  --color-text-inverse: var(--color-white);
+  --color-text-inverse-muted: #e7e5e4;
+
+  /* ===================================================
+     3. COMPONENT TOKENS (Card)
+     =================================================== */
+  /* Spacing / Gap (apunta a la escala de Tailwind: 16 = 64px) */
+  --spacing-card-gap: calc(var(--spacing) * 16);
+
+  /* Fill / Fondo */
+  --color-card-fill-primary: var(--color-surface-accent);
+  --color-card-fill-ghost: transparent;
+
+  /* Border */
+  --color-card-border-primary: transparent;
+  --color-card-border-ghost: var(--color-border-subtle);
+
+  /* Tag / Eyebrow */
+  --color-card-tag-primary: var(--color-brand-rose);
+  --color-card-tag-ghost: var(--color-brand-green);
+
+  /* Title / Heading */
+  --color-card-title-primary: var(--color-text-inverse);
+  --color-card-title-ghost: var(--color-text-primary);
+
+  /* Description / Body */
+  --color-card-desc-primary: var(--color-text-inverse-muted);
+  --color-card-desc-ghost: var(--color-text-secondary);
+
+  /* Icon / Flower */
+  --color-card-icon-primary: var(--color-text-inverse);
+  --color-card-icon-ghost: var(--color-brand-brown);
+
+  /* ===================================================
+     4. COMPONENT TOKENS (Button)
+     =================================================== */
+  /* Fill / Fondo */
+  --color-button-fill-primary: var(--color-surface-accent);
+  --color-button-fill-ghost: transparent;
+
+  /* Text */
+  --color-button-text-primary: var(--color-text-inverse);
+  --color-button-text-ghost: var(--color-brand-brown);
 }

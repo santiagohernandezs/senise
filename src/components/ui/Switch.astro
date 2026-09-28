@@ -1,0 +1,74 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "inline-flex p-1 bg-brand-cream/60 border border-border-subtle rounded-full relative select-none",
+    className,
+  ]}
+  role="tablist"
+  aria-label="Modalidad de inversión"
+>
+  <button
+    type="button"
+    id="btn-deuda"
+    role="tab"
+    aria-selected="true"
+    class="px-6 py-2 text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer text-text-secondary"
+  >
+    Deuda
+  </button>
+
+  <button
+    type="button"
+    id="btn-equity"
+    role="tab"
+    aria-selected="false"
+    class="px-6 py-2 text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer text-text-secondary"
+  >
+    Equity
+  </button>
+</div>
+
+<script>
+  import { displayMode } from "@/store";
+
+  const btnDeuda = document.getElementById("btn-deuda");
+  const btnEquity = document.getElementById("btn-equity");
+
+  const activeClasses = ["bg-surface-accent", "text-text-inverse", "shadow-sm"];
+  const inactiveClasses = ["text-text-secondary"];
+
+  function updateSwitchUI(mode: "deuda" | "equity") {
+    if (mode === "deuda") {
+      btnDeuda?.classList.add(...activeClasses);
+      btnDeuda?.classList.remove(...inactiveClasses);
+      btnDeuda?.setAttribute("aria-selected", "true");
+
+      btnEquity?.classList.remove(...activeClasses);
+      btnEquity?.classList.add(...inactiveClasses);
+      btnEquity?.setAttribute("aria-selected", "false");
+    } else {
+      btnEquity?.classList.add(...activeClasses);
+      btnEquity?.classList.remove(...inactiveClasses);
+      btnEquity?.setAttribute("aria-selected", "true");
+
+      btnDeuda?.classList.remove(...activeClasses);
+      btnDeuda?.classList.add(...inactiveClasses);
+      btnDeuda?.setAttribute("aria-selected", "false");
+    }
+  }
+
+  // Sincronizar estado inicial y cambios reactivos de Nano Stores
+  displayMode.subscribe((currentMode) => {
+    updateSwitchUI(currentMode);
+  });
+
+  btnDeuda?.addEventListener("click", () => displayMode.set("deuda"));
+  btnEquity?.addEventListener("click", () => displayMode.set("equity"));
+</script>

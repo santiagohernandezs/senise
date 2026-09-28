@@ -1,0 +1,30 @@
+---
+import { capitalize } from "@/utils/capitalize";
+
+interface Props {
+  tag?: string;
+  title?: string;
+  variant?: "primary" | "ghost";
+}
+
+const { variant = "primary", tag, title } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex flex-col gap-2",
+    {
+      "text-card-desc-primary": variant === "primary",
+      "text-card-desc-ghost": variant === "ghost",
+    },
+  ]}
+>
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-1"> 
+      {tag && (<p class="uppercase bold">{tag}</p>)}
+      {title && (<p class="bold">{capitalize(title)}</p>)}
+    </div>
+      
+    <slot />
+  </div>
+</div>

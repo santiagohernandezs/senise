@@ -1,0 +1,18 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+  class?: string;
+}
+
+const { size = "sm", class: className = "" } = Astro.props;
+
+const sizes = {
+  sm: "text-xs tracking-wider font-semibold",
+  md: "text-sm tracking-wide font-medium",
+  lg: "text-3xl md:text-4xl tracking-widest font-light",
+};
+---
+
+<p class:list={["uppercase", sizes[size], className]}>
+  <slot />
+</p>

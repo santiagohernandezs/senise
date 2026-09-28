@@ -1,0 +1,21 @@
+---
+interface Props {
+  id: string;
+  direction?: "row" | "column";
+}
+
+const { id, direction = "row" } = Astro.props;
+---
+
+<section id={id} class="p-6">
+  <div class:list={[
+         "max-w-350 flex gap-6 m-auto", 
+         {
+            "flex-row": direction === "row",
+            "flex-col": direction === "column"
+         }
+       ]}
+  >
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  variant?: "primary" | "ghost";
+}
+
+const { variant = "primary" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex flex-col gap-card-gap px-6 py-16 flex-1",
+    {
+      "bg-card-fill-primary border border-card-border-primary": variant === "primary",
+      "bg-card-fill-ghost border border-card-border-ghost": variant === "ghost",
+    },
+  ]}
+>
+  <slot />
+</div>

@@ -1,0 +1,37 @@
+---
+import { capitalize } from "../../utils/capitalize.ts";
+
+interface Props {
+  variant?: "primary" | "ghost";
+  text?: string;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  class?: string;
+}
+
+const {
+  variant = "primary",
+  text,
+  href,
+  type = "button",
+  class: className,
+} = Astro.props;
+
+const Element = href ? "a" : "button";
+---
+
+<Element
+  href={href}
+  type={href ? undefined : type}
+  class:list={[
+    "p-2 font-semibold cursor-pointer",
+    {
+      "bg-button-fill-primary text-button-text-primary": variant === "primary",
+      "bg-button-fill-ghost text-button-text-ghost": variant === "ghost",
+    },
+    className,
+  ]}
+>
+  <slot>{text ? capitalize(text) : null}</slot>
+</Element>
+

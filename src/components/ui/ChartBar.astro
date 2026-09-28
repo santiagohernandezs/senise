@@ -1,0 +1,19 @@
+---
+import { capitalize } from "../../utils/capitalize";
+
+interface Props {
+  title: string;
+  value: number;
+}
+
+const { title, value } = Astro.props;
+const barWidth = Math.min(Math.max(value, 0), 100);
+---
+
+<div>
+  <div class="flex justify-between">
+    <p>{capitalize(title)}</p>
+    <p>{value}%</p>
+  </div>
+  <div style={`width: ${barWidth}%`} class="h-5 bg-blue-600 rounded-sm transition-all duration-300"></div>
+</div>
