@@ -4,15 +4,26 @@ import { capitalize } from "../../utils/capitalize";
 interface Props {
   tag?: string;
   title?: string;
+  align?: "left" | "center" | "right";
 }
 
-const { tag, title } = Astro.props;
+const { tag, title, align = "left" } = Astro.props;
 ---
 
 <div class="flex flex-col gap-2">
   <div class="flex flex-col gap-1">
-    {tag && <p class:list={["uppercase"]}>{tag}</p>}
-    {title && <h3 class="text-4xl font-bold text-text-primary">{capitalize(title)}</h3>}
+    {tag && <p class:list={["uppercase", {
+      "text-left": align === "left",
+      "text-center": align === "center",
+      "text-right": align === "right"
+    }]}>{tag}</p>}
+    {title && <h3 class:list={["text-4xl font-bold text-text-primary", {
+      "text-left": align === "left",
+      "text-center": align === "center",
+      "text-right": align === "right"
+    }]}>{capitalize(title)}</h3>}
   </div>
-  <slot/>
+  <div class="mx-auto w-5/6 text-center">
+    <slot/>
+  </div>
 </div>
