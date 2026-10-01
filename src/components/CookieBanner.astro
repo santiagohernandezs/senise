@@ -1,0 +1,219 @@
+---
+import Checkbox from "./ui/Checkbox.astro";
+---
+
+<div
+  id="cookie-banner-container"
+  class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 transition-all duration-300 transform opacity-0 translate-y-4 pointer-events-none"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-banner-title"
+>
+  <div class="bg-brand-white/95 backdrop-blur-md border border-border-subtle shadow-2xl rounded-sm p-5 sm:p-6 text-text-primary">
+    <!-- Vista Resumen -->
+    <div id="cookie-summary-view" class="flex flex-col gap-4">
+      <div class="flex items-start justify-between gap-3">
+        <h3 id="cookie-banner-title" class="text-sm font-bold tracking-tight text-brand-brown uppercase">
+          Gestión de Privacidad y Cookies
+        </h3>
+        <span class="text-brand-rose text-base shrink-0 select-none">✦</span>
+      </div>
+
+      <p class="text-xs text-text-secondary leading-relaxed">
+        Utilizamos cookies técnicas necesarias para el funcionamiento del sitio y cookies analíticas para entender cómo interactúas con nuestra web y mejorar tu experiencia. Puedes aceptarlas, rechazarlas o configurar tus preferencias. Consulta nuestra <a href="/politica-de-privacidad" class="underline hover:text-brand-brown transition-colors">Política de Privacidad</a>.
+      </p>
+
+      <div class="flex flex-col gap-2 pt-1">
+        <div class="flex flex-col sm:flex-row gap-2">
+          <button
+            type="button"
+            id="btn-reject-all"
+            class="flex-1 py-2 px-3 text-xs font-semibold border border-border-subtle bg-brand-white hover:bg-neutral-100 text-text-primary rounded-xs transition-colors cursor-pointer text-center"
+          >
+            Rechazar opcionales
+          </button>
+          <button
+            type="button"
+            id="btn-accept-all"
+            class="flex-1 py-2 px-3 text-xs font-semibold bg-brand-brown hover:bg-brand-brown/90 text-brand-white rounded-xs transition-colors cursor-pointer text-center"
+          >
+            Aceptar todas
+          </button>
+        </div>
+
+        <button
+          type="button"
+          id="btn-open-settings"
+          class="text-[11px] text-text-secondary hover:text-brand-brown underline py-1 text-center transition-colors cursor-pointer"
+        >
+          Personalizar preferencias
+        </button>
+      </div>
+    </div>
+
+    <!-- Vista Configuración Detallada -->
+    <div id="cookie-settings-view" class="hidden flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-border-subtle/70 pb-2">
+        <h4 class="text-xs font-bold text-brand-brown uppercase">
+          Configuración de Cookies
+        </h4>
+        <button
+          type="button"
+          id="btn-back-to-summary"
+          class="text-xs text-text-secondary hover:text-brand-brown cursor-pointer underline"
+        >
+          Volver
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3 max-h-60 overflow-y-auto pr-1 text-xs">
+        <!-- Cookies Técnicas -->
+        <div class="p-3 bg-brand-white border border-border-subtle rounded-xs flex flex-col gap-1">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-text-primary">Técnicas / Necesarias</span>
+            <span class="text-[10px] bg-brand-brown/10 text-brand-brown px-1.5 py-0.5 rounded-xs font-medium">Siempre activas</span>
+          </div>
+          <p class="text-[11px] text-text-secondary leading-normal mt-0.5">
+            Son imprescindibles para garantizar la navegación segura y el correcto funcionamiento técnico de la plataforma.
+          </p>
+        </div>
+
+        <!-- Cookies Analíticas -->
+        <label class="p-3 bg-brand-white border border-border-subtle rounded-xs flex flex-col gap-1 cursor-pointer hover:bg-neutral-50/60 transition-colors">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-text-primary">Analíticas y Métricas</span>
+            <input
+              type="checkbox"
+              id="cookie-toggle-analytics"
+              class="w-4 h-4 rounded-xs border border-border-subtle text-brand-brown checked:bg-brand-brown checked:border-brand-brown focus:ring-0 cursor-pointer accent-brand-brown"
+            />
+          </div>
+          <p class="text-[11px] text-text-secondary leading-normal mt-0.5">
+            Nos permiten cuantificar las visitas y fuentes de tráfico para medir y optimizar el rendimiento del sitio.
+          </p>
+        </label>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 pt-1 border-t border-border-subtle/70">
+        <button
+          type="button"
+          id="btn-save-settings"
+          class="w-full py-2 px-3 text-xs font-semibold bg-brand-brown hover:bg-brand-brown/90 text-brand-white rounded-xs transition-colors cursor-pointer text-center"
+        >
+          Guardar selección
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  interface CookiePreferences {
+    necessary: boolean;
+    analytics: boolean;
+    timestamp: string;
+  }
+
+  const STORAGE_KEY = "senise_cookie_consent";
+  const container = document.getElementById("cookie-banner-container");
+  const summaryView = document.getElementById("cookie-summary-view");
+  const settingsView = document.getElementById("cookie-settings-view");
+
+  const btnAcceptAll = document.getElementById("btn-accept-all");
+  const btnRejectAll = document.getElementById("btn-reject-all");
+  const btnOpenSettings = document.getElementById("btn-open-settings");
+  const btnBackToSummary = document.getElementById("btn-back-to-summary");
+  const btnSaveSettings = document.getElementById("btn-save-settings");
+  const toggleAnalytics = document.getElementById("cookie-toggle-analytics") as HTMLInputElement | null;
+
+  function getSavedConsent(): CookiePreferences | null {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveConsent(preferences: { necessary: boolean; analytics: boolean }) {
+    const data: CookiePreferences = {
+      ...preferences,
+      timestamp: new Date().toISOString(),
+    };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      console.warn("No se pudo guardar la preferencia de cookies en localStorage:", e);
+    }
+    hideBanner();
+    dispatchConsentEvent(data);
+  }
+
+  function showBanner() {
+    if (!container) return;
+    container.classList.remove("pointer-events-none", "opacity-0", "translate-y-4");
+    container.classList.add("opacity-100", "translate-y-0");
+  }
+
+  function hideBanner() {
+    if (!container) return;
+    container.classList.add("opacity-0", "translate-y-4", "pointer-events-none");
+    container.classList.remove("opacity-100", "translate-y-0");
+  }
+
+  function dispatchConsentEvent(preferences: CookiePreferences) {
+    window.dispatchEvent(
+      new CustomEvent("cookieConsentUpdated", {
+        detail: preferences,
+      })
+    );
+  }
+
+  // Inicialización
+  const savedConsent = getSavedConsent();
+
+  if (!savedConsent) {
+    // Retardo sutil para mejorar la experiencia de carga inicial
+    setTimeout(showBanner, 600);
+  } else {
+    // Si ya existe consentimiento previo, emitimos el estado
+    dispatchConsentEvent(savedConsent);
+    if (toggleAnalytics) {
+      toggleAnalytics.checked = Boolean(savedConsent.analytics);
+    }
+  }
+
+  // Event Listeners
+  btnAcceptAll?.addEventListener("click", () => {
+    saveConsent({ necessary: true, analytics: true });
+  });
+
+  btnRejectAll?.addEventListener("click", () => {
+    saveConsent({ necessary: true, analytics: false });
+  });
+
+  btnOpenSettings?.addEventListener("click", () => {
+    summaryView?.classList.add("hidden");
+    settingsView?.classList.remove("hidden");
+    settingsView?.classList.add("flex");
+  });
+
+  btnBackToSummary?.addEventListener("click", () => {
+    settingsView?.classList.add("hidden");
+    settingsView?.classList.remove("flex");
+    summaryView?.classList.remove("hidden");
+  });
+
+  btnSaveSettings?.addEventListener("click", () => {
+    const isAnalyticsChecked = toggleAnalytics ? toggleAnalytics.checked : false;
+    saveConsent({ necessary: true, analytics: isAnalyticsChecked });
+  });
+
+  // Permitir reabrir el banner desde cualquier enlace o botón con data-open-cookie-banner
+  document.querySelectorAll("[data-open-cookie-banner]").forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      showBanner();
+    });
+  });
+</script>

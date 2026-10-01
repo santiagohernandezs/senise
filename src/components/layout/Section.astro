@@ -1,21 +1,53 @@
 ---
 interface Props {
   id: string;
+  variant?: "default" | "subtle" | "accent" | "pattern";
   direction?: "row" | "column";
+  class?: string;
+  className?: string;
+  containerClass?: string;
 }
 
-const { id, direction = "row" } = Astro.props;
+const {
+  id,
+  variant = "default",
+  direction = "column",
+  class: classProp,
+  className,
+  containerClass = "",
+} = Astro.props;
+
+const sectionClass = classProp || className || "";
 ---
 
-<section id={id} class="p-6">
-  <div class:list={[
-         "max-w-350 flex gap-6 m-auto", 
-         {
-            "flex-row": direction === "row",
-            "flex-col": direction === "column"
-         }
-       ]}
+<section
+  id={id}
+  class:list={[
+    "w-full px-4 xl:px-0 py-12 md:py-16 transition-colors duration-200",
+    {
+      "bg-surface-canvas text-text-primary [--section-tag-color:var(--color-section-tag)] [--section-title-color:var(--color-section-title)] [--section-desc-color:var(--color-section-desc)]":
+        variant === "default",
+      "bg-surface-subtle text-text-primary [--section-tag-color:var(--color-section-tag)] [--section-title-color:var(--color-section-title)] [--section-desc-color:var(--color-section-desc)]":
+        variant === "subtle",
+      "bg-surface-accent text-text-inverse [--section-tag-color:var(--color-section-tag-inverse)] [--section-title-color:var(--color-section-title-inverse)] [--section-desc-color:var(--color-section-desc-inverse)]":
+        variant === "accent",
+      "bg-grid-pattern text-text-primary [--section-tag-color:var(--color-section-tag)] [--section-title-color:var(--color-section-title)] [--section-desc-color:var(--color-section-desc)]":
+        variant === "pattern",
+    },
+    sectionClass,
+  ]}
+>
+  <div
+    class:list={[
+      "max-w-300 mx-auto flex gap-y-12",
+      {
+        "flex-col md:flex-row gap-x-5": direction === "row",
+        "flex-col": direction === "column",
+      },
+      containerClass,
+    ]}
   >
     <slot />
   </div>
 </section>
+

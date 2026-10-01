@@ -4,26 +4,43 @@ import { capitalize } from "../../utils/capitalize";
 interface Props {
   tag?: string;
   title?: string;
+  description?: string;
   align?: "left" | "center" | "right";
+  class?: string;
 }
 
-const { tag, title, align = "left" } = Astro.props;
+const { tag, title, description, align = "left", class: className = "" } = Astro.props;
+
+const ALIGNMENT_MAP = {
+  left: "text-left",
+  center: "text-center",
+  right: "text-right",
+} as const;
 ---
 
-<div class="flex flex-col gap-2">
-  <div class="flex flex-col gap-1">
-    {tag && <p class:list={["uppercase", {
-      "text-left": align === "left",
-      "text-center": align === "center",
-      "text-right": align === "right"
-    }]}>{tag}</p>}
-    {title && <h3 class:list={["text-4xl font-bold text-text-primary", {
-      "text-left": align === "left",
-      "text-center": align === "center",
-      "text-right": align === "right"
-    }]}>{capitalize(title)}</h3>}
+<div class:list={["flex flex-col gap-3", className]}>
+  <div class:list={["flex flex-col gap-1.5", ALIGNMENT_MAP[align]]}>
+    {tag && (
+      <p class="text-xs md:text-sm font-bold uppercase tracking-wider text-[var(--section-tag-color,var(--color-section-tag))]">
+        {tag}
+      </p>
+    )}
+    {title && (
+      <h2 class="text-3xl md:text-4xl lg:text-[40px] font-bold tracking-tight text-[var(--section-title-color,var(--color-section-title))] leading-tight">
+        {capitalize(title)}
+      </h2>
+    )}
   </div>
-  <div class="mx-auto w-5/6 text-center">
-    <slot/>
+
+  <div
+    class:list={[
+      "text-sm md:text-base text-[var(--section-desc-color,var(--color-section-desc))] leading-relaxed",
+      ALIGNMENT_MAP[align],
+      {
+        "w-full md:w-5/6 mx-auto": align === "center",
+      },
+    ]}
+  >
+    {description ? <p>{description}</p> : <slot />}
   </div>
 </div>

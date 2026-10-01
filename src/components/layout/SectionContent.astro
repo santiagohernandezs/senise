@@ -1,18 +1,39 @@
 ---
 interface Props {
+  cols?: 1 | 2 | 3 | 4 | 12;
   direction?: "row" | "column";
+  gap?: "sm" | "md" | "lg";
+  class?: string;
 }
 
-const { direction = "row" } = Astro.props;
+const { cols, direction = "row", gap = "md", class: className = "" } = Astro.props;
+
+const isCol = direction === "column" && !cols;
+
+const colsMap = {
+  1: "grid-cols-1",
+  2: "grid-cols-1 md:grid-cols-2",
+  3: "grid-cols-1 md:grid-cols-3",
+  4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+  12: "grid-cols-1 md:grid-cols-12",
+} as const;
+
+const gapMap = {
+  sm: "gap-4",
+  md: "gap-5 lg:gap-6",
+  lg: "gap-8 lg:gap-10",
+} as const;
+
+const gridColsClass = colsMap[cols ?? 3];
+const gapClass = gapMap[gap];
 ---
 
-<div class:list={[
-       "flex gap-6 m-auto", 
-       {
-          "flex-row": direction === "row",
-          "flex-col": direction === "column"
-       }
-     ]}
+<div
+  class:list={[
+    "w-full",
+    isCol ? ["flex flex-col", gapClass] : ["grid", gapClass, gridColsClass],
+    className,
+  ]}
 >
   <slot />
 </div>
