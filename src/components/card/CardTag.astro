@@ -8,11 +8,11 @@ const { size = "sm", class: className = "" } = Astro.props;
 
 const sizes = {
   sm: "text-xs tracking-wider font-semibold",
-  md: "text-sm tracking-wide font-medium",
+  md: "text-sm tracking-wider font-bold",
   lg: "text-3xl md:text-4xl tracking-widest font-light",
 };
 ---
 
-<p class:list={["uppercase", sizes[size], className]}>
+<p class:list={["uppercase text-[var(--card-tag-color,inherit)]", sizes[size], className]}>
   <slot />
 </p>

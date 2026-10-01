@@ -1,32 +1,34 @@
 ---
 interface Props {
   variant?: "primary" | "ghost";
+  class?: string;
   className?: string;
   icon?: (_props: any) => any;
 }
 
-const { variant = "primary", className = "", icon: Icon } = Astro.props;
+const {
+  variant = "primary",
+  class: classProp,
+  className: classNameProp,
+  icon: Icon,
+} = Astro.props;
+const className = classProp || classNameProp || "";
 ---
 
 <div
   class:list={[
-    "flex flex-col gap-card-gap p-6 flex-1",
+    "flex flex-col gap-6 p-6 flex-1",
     {
-      "bg-card-fill-primary border border-card-border-primary": variant === "primary",
-      "bg-card-fill-ghost border border-card-border-ghost": variant === "ghost",
+      "bg-card-fill-primary border border-card-border-primary text-card-desc-primary [--card-title-color:var(--color-card-title-primary)] [--card-tag-color:var(--color-card-tag-primary)] [--card-desc-color:var(--color-card-desc-primary)] [--card-icon-color:var(--color-card-icon-primary)]":
+        variant === "primary",
+      "bg-card-fill-ghost border border-card-border-ghost text-card-desc-ghost [--card-title-color:var(--color-card-title-ghost)] [--card-tag-color:var(--color-card-tag-ghost)] [--card-desc-color:var(--color-card-desc-ghost)] [--card-icon-color:var(--color-card-icon-ghost)]":
+        variant === "ghost",
     },
-    className
+    className,
   ]}
 >
   {Icon && (
-    <div
-      class:list={[
-        {
-          "text-card-icon-primary": variant === "primary",
-          "text-card-icon-ghost": variant === "ghost",
-        }
-      ]}
-    >
+    <div class="mb-10 text-[var(--card-icon-color)]">
       <Icon />
     </div>
   )}

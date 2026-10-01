@@ -6,6 +6,6 @@ interface Props {
 const { class: className = "" } = Astro.props;
 ---
 
-<div class:list={["flex flex-col gap-4", className]}>
+<div class:list={["flex flex-col gap-0", className]}>
   <slot />
 </div>

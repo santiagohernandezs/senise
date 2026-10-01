@@ -5,9 +5,12 @@ import { Image } from "astro:assets";
 interface Props {
   image: ImageMetadata;
   alt: string;
+  class?: string;
 }
 
-const { image, alt } = Astro.props;
+const { image, alt, class: className = "" } = Astro.props;
 ---
 
-<Image alt={alt} src={image} />
+<div class:list={["w-full overflow-hidden rounded-sm", className]}>
+  <Image alt={alt} src={image} class="w-full h-auto object-cover" />
+</div>

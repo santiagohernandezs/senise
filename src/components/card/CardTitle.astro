@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"h1" | "h2" | "h3" | "h4" | "h5" | "h6"> {
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+  class?: string;
+}
+
+const { as: Tag = "h3", class: className = "", ...attrs } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    "font-bold text-xl text-[var(--card-title-color,inherit)] leading-tight tracking-tight",
+    className,
+  ]}
+  {...attrs}
+>
+  <slot />
+</Tag>
