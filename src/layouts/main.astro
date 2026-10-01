@@ -1,9 +1,13 @@
 ---
 import "../styles/global.css";
+import CookieBanner from "../components/CookieBanner.astro";
+import Navbar from "@/components/layout/Navbar.astro";
+import Footer from "@/components/layout/Footer.astro";
+
 const { title } = Astro.props;
 ---
 
-<html lang="es">
+<html class="scroll-smooth" lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -15,7 +19,12 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-brand-white">
-		<slot />
+	<body class="bg-surface-canvas min-h-screen flex flex-col text-text-primary font-sans">
+		<Navbar />
+		<main class="flex-1">
+			<slot />
+		</main>
+		<Footer />
+		<CookieBanner />
 	</body>
 </html>
