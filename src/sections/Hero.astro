@@ -1,13 +1,121 @@
 ---
-import Button from "../components/ui/Button.astro";
-import Section from "@components/layout/Section.astro";
-import SectionContent from "@/components/layout/SectionContent.astro";
-import SectionHeader from "@/components/layout/SectionHeader.astro";
+import Button from "@/components/ui/Button.astro";
+import { Section, SectionContent } from "@layout";
+
+// Generar una cuadrícula de 96 tiles con variaciones y delays para el fondo animado
+const TILE_COUNT = 96;
+const tiles = Array.from({ length: TILE_COUNT }, (_, i) => {
+  const mod = (i * 7 + 3) % 11;
+  const isAnimated = mod % 2 === 0;
+  const delay = (((i * 13) % 40) / 10).toFixed(1);
+  const duration = (4.5 + (i % 5) * 1.4).toFixed(1);
+
+  // Escala tonal de brand-brown (#41382f)
+  const shade =
+    mod === 0
+      ? "bg-brand-brown/12"
+      : mod === 2
+        ? "bg-brand-brown/8"
+        : mod === 4
+          ? "bg-brand-brown/4"
+          : mod === 6
+            ? "bg-brand-brown/2"
+            : "bg-transparent";
+
+  return {
+    isAnimated,
+    delay,
+    duration,
+    shade,
+  };
+});
 ---
 
-<Section id="hero">
-  <SectionHeader>
-  </SectionHeader>
-  <SectionContent>
+<Section
+  id="hero"
+  class="relative overflow-hidden py-24 md:py-32 lg:py-40 bg-surface-canvas flex items-center justify-center min-h-[82vh]"
+>
+  <!-- Fondo de tiles animados en escalas de brand-brown -->
+  <div
+    class="absolute inset-0 pointer-events-none -z-0 overflow-hidden flex items-center justify-center [mask-image:radial-gradient(ellipse_80%_65%_at_50%_50%,black_20%,transparent_85%)]"
+    aria-hidden="true"
+  >
+    <div
+      class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12 gap-2 sm:gap-2.5 w-[140%] h-[140%] -rotate-2 select-none"
+    >
+      {tiles.map((tile) => (
+        <div
+          class:list={[
+            "tile-cell rounded-xs border border-brand-brown/10 aspect-square sm:aspect-4/3 transition-colors",
+            tile.shade,
+            { "animate-tile-pulse": tile.isAnimated },
+          ]}
+          style={
+            tile.isAnimated
+              ? `animation-delay: ${tile.delay}s; animation-duration: ${tile.duration}s;`
+              : undefined
+          }
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Contenido estructurado: Pill -> Headline -> Subtitle -> CTA -->
+  <SectionContent
+    direction="column"
+    class="relative z-10 items-center text-center max-w-4xl mx-auto gap-6 sm:gap-7"
+  >
+    <!-- 1. Pill -->
+    <div
+      class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-brand-brown/15 bg-brand-brown/5 text-brand-brown text-xs sm:text-sm font-semibold tracking-wide backdrop-blur-xs shadow-xs select-none hover:border-brand-brown/30 transition-colors"
+    >
+      <span class="w-1.5 h-1.5 rounded-full bg-brand-rose animate-pulse"></span>
+      <span>Single Family Office · Capital Privado e Inmobiliario</span>
+    </div>
+
+    <!-- 2. Headline -->
+    <h1
+      class="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tight text-text-primary leading-[1.08]"
+    >
+      Reconocemos el valor real y apostamos por él
+    </h1>
+
+    <!-- 3. Subtitle -->
+    <p
+      class="text-base sm:text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl font-normal"
+    >
+      Somos un vehículo ágil de capital privado que inyecta recursos propios en proyectos inmobiliarios de alto potencial, actuando como el socio estratégico que impulsa el crecimiento de la economía real.
+    </p>
+
+    <!-- 4. CTA -->
+    <div class="pt-2">
+      <Button
+        href="#contact"
+        variant="primary"
+        class="px-8 py-3.5 text-sm sm:text-base font-semibold shadow-sm hover:opacity-95 transition-all"
+      >
+        Presentar Proyecto
+      </Button>
+    </div>
   </SectionContent>
 </Section>
+
+<style>
+  @keyframes tilePulse {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.95;
+      background-color: color-mix(in srgb, var(--color-brand-brown) 22%, transparent);
+      border-color: color-mix(in srgb, var(--color-brand-brown) 28%, transparent);
+      transform: scale(1.02);
+    }
+  }
+
+  .animate-tile-pulse {
+    animation: tilePulse infinite ease-in-out both;
+  }
+</style>
