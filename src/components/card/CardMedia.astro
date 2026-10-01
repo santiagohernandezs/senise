@@ -6,11 +6,22 @@ interface Props {
   image: ImageMetadata;
   alt: string;
   class?: string;
+  width?: number;
+  height?: number;
 }
 
-const { image, alt, class: className = "" } = Astro.props;
+const { image, alt, class: className = "", width = 800, height } = Astro.props;
+const calculatedHeight = height ?? Math.round(width * (image.height / image.width));
 ---
 
 <div class:list={["w-full overflow-hidden rounded-sm", className]}>
-  <Image alt={alt} src={image} class="w-full h-auto object-cover" />
+  <Image
+    alt={alt}
+    src={image}
+    width={width}
+    height={calculatedHeight}
+    loading="lazy"
+    decoding="async"
+    class="w-full h-auto object-cover"
+  />
 </div>
