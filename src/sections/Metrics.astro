@@ -1,0 +1,32 @@
+---
+import { Section, SectionHeader, SectionContent } from "@layout";
+import ChartBar from "@/components/ui/ChartBar.astro";
+
+const metrics = [
+  {
+    title: "liquidez",
+    value: 19.8,
+    color: "bg-chart-1",
+  },
+  {
+    title: "deuda privada",
+    value: 31.7,
+    color: "bg-chart-2",
+  },
+  {
+    title: "private equity",
+    value: 48.5,
+    color: "bg-chart-3",
+  },
+];
+---
+
+<Section id="metrics" variant="pattern" direction="row">
+    <SectionHeader class="flex-1" tag="nuestras metricas" title="resaltamos el rendimiento de capital.">
+      Maximizamos el rendimiento financiero reduciendo la friccion en tus operaciones.
+    </SectionHeader>
+
+  <SectionContent direction="column" class="flex-1 gap-10">
+    {metrics.map((metric) => <ChartBar {...metric} />)}
+  </SectionContent>
+</Section>

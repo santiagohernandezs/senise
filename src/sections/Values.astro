@@ -2,9 +2,7 @@
 import Section from "@/components/layout/Section.astro";
 import SectionHeader from "@/components/layout/SectionHeader.astro";
 import SectionContent from "@/components/layout/SectionContent.astro";
-import Card from "@/components/card/Card.astro";
-import CardContent from "@/components/card/CardContent.astro";
-import CardTag from "@card/CardTag.astro";
+import { Card, CardHeader, CardContent, CardTag, CardTitle, CardDescription } from "@card";
 import Flower from "@/components/ui/svg/Flower.astro";
 
 const cardsContent = [
@@ -36,15 +34,16 @@ const cardsContent = [
   <SectionContent>
     {cardsContent.map(content => (
       <Card variant="primary" icon={Flower}>
-          <CardContent>
+        <CardContent>
+          <CardHeader>
             <CardTag size="sm">
               {content.tag}
             </CardTag>
-
-            <h3>{content.title}</h3>
-            <p>{content.description}</p>
-          </CardContent>
-        </Card>
+            <CardTitle class="text-lg">{content.title}</CardTitle>
+          </CardHeader>
+          <CardDescription>{content.description}</CardDescription>
+        </CardContent>
+      </Card>
     ))}
   </SectionContent>
 </Section>

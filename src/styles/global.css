@@ -147,8 +147,8 @@
 .bg-building {
   background-color: var(--color-surface-canvas);
   background-image: url("../assets/images/bulding.jpg");
-  background-size: cover;
-  background-position: center;
+  background-size: fit;
+  background-position: right;
   background-repeat: no-repeat;
 }
 

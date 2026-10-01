@@ -2,16 +2,12 @@
 import Button from "../components/ui/Button.astro";
 import Section from "@components/layout/Section.astro";
 import SectionContent from "@/components/layout/SectionContent.astro";
-
-interface Props {
-  title: string;
-  description: string;
-}
-
-const { title, description } = Astro.props;
+import SectionHeader from "@/components/layout/SectionHeader.astro";
 ---
 
 <Section id="hero">
+  <SectionHeader>
+  </SectionHeader>
   <SectionContent>
   </SectionContent>
 </Section>

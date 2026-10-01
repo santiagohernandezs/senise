@@ -1,0 +1,270 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeader from "@/components/layout/SectionHeader.astro";
+import SectionContent from "@/components/layout/SectionContent.astro";
+import TextField from "@/components/ui/TextField.astro";
+import Radio from "@/components/ui/Radio.astro";
+import Checkbox from "@/components/ui/Checkbox.astro";
+import TextAreaField from "@/components/ui/TextAreaField.astro";
+// import FileUpload from "@/components/ui/FileUpload.astro";
+import Button from "@/components/ui/Button.astro";
+---
+
+<Section id="contact" direction="row" class="items-start">
+  <SectionHeader class="flex-1" tag="contacto" title="hablanos de tu proyecto">
+    <p>Recibe una asesoria personalizada para optimizar tus recursos y acelerar los resultados</p>
+    <p>Calle de Serrano, 45, Piso 1 Ofc. 03, Salamanca, 28001 Madrid, España</p>
+  </SectionHeader>
+
+  <SectionContent class="flex-1" cols={1}>
+    <form id="contact-form" class="flex flex-col gap-6">
+      
+      <!-- Paso 1: Filtro Legal de Entrada -->
+      <div id="step-legal" class="flex flex-col gap-5">
+        <div class="border-b border-border-subtle/60 pb-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold uppercase tracking-wider text-brand-brown">
+              Paso 1: Filtro Legal de Entrada
+            </h4>
+            <span class="text-xs text-brand-rose font-medium">Requisito obligatorio</span>
+          </div>
+          <p class="text-xs text-text-secondary mt-1">
+            Casillas obligatorias interactivas. Debe marcar ambas como leídas para acceder al Paso 2.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3.5">
+          <Checkbox
+            id="legalPrivateFunds"
+            name="legalPrivateFunds"
+            required={true}
+          >
+            <span class="font-semibold text-text-primary text-sm">Declaración de Fondos Privados:</span>
+            <span class="text-xs text-text-secondary mt-1 leading-relaxed">
+              Entiendo y acepto que Senise Capital, S.L. opera exclusivamente como una oficina patrimonial privada (<em>Single Family Office</em>) que despliega capital propio. Comprendo que la presentación de este proyecto se realiza de forma voluntaria para la evaluación interna de la sociedad y no implica una oferta pública, comercialización de productos financieros, ni garantía de financiación. <strong class="text-brand-rose font-medium">(Obligatorio)</strong>
+            </span>
+          </Checkbox>
+
+          <Checkbox
+            id="legalConfidentiality"
+            name="legalConfidentiality"
+            required={true}
+          >
+            <span class="font-semibold text-text-primary text-sm">Confidencialidad de Doble Vía:</span>
+            <span class="text-xs text-text-secondary mt-1 leading-relaxed">
+              Declaro que la información y documentos que voy a suministrar son de mi propiedad o cuento con las facultades legales para compartirlos. Acepto que Senise Capital, S.L. tratará esta información con estricta confidencialidad corporativa exclusivamente para su análisis interno. <strong class="text-brand-rose font-medium">(Obligatorio)</strong>
+            </span>
+          </Checkbox>
+        </div>
+
+        <div class="pt-2">
+          <button
+            type="button"
+            id="btn-to-step-2"
+            disabled
+            class="px-6 py-2.5 font-semibold text-sm rounded-sm transition-all duration-200 cursor-not-allowed bg-brand-brown/40 text-brand-white/70"
+          >
+            Continuar al Paso 2
+          </button>
+        </div>
+      </div>
+
+      <!-- Paso 2 y Paso 3: Contacto y Proyecto -->
+      <div id="step-content" class="hidden flex-col gap-6">
+        <!-- Indicador de Paso 1 Aprobado -->
+        <div class="flex items-center justify-between p-3 rounded-sm bg-brand-brown/5 border border-brand-brown/20 text-xs">
+          <span class="flex items-center gap-2 text-brand-brown font-medium">
+            <svg class="w-4 h-4 text-brand-brown shrink-0" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+            </svg>
+            Paso 1: Filtro Legal de Entrada aceptado
+          </span>
+          <button
+            type="button"
+            id="btn-back-to-step-1"
+            class="text-brand-brown underline hover:opacity-80 cursor-pointer font-medium"
+          >
+            Revisar
+          </button>
+        </div>
+
+        <!-- Paso 2: Datos de Contacto Corporativo -->
+        <div class="border-b border-border-subtle/60 pb-2">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-brand-brown">
+            Paso 2: Datos de Contacto Corporativo
+          </h4>
+        </div>
+
+        <TextField
+          id="fullName"
+          name="fullName"
+          label="Nombre y Apellidos del Solicitante"
+          placeholder="Ej. Alejandro Fernández"
+          type="text"
+          required={true}
+        />
+
+        <TextField
+          id="role"
+          name="role"
+          label="Cargo / Relación con el Proyecto"
+          placeholder="Ej. Promotor Titular, Asesor, CEO"
+          type="text"
+        />
+
+        <TextField
+          id="email"
+          name="email"
+          label="Correo Electrónico Corporativo"
+          placeholder="a.fernandez@empresa.com"
+          type="email"
+          required={true}
+        />
+
+        <TextField
+          id="telf"
+          name="telf"
+          label="Teléfono de Contacto (con prefijo internacional)"
+          placeholder="+34 600 000 000"
+          type="tel"
+          required={true}
+        />
+
+        <!-- Paso 3: Perfil Técnico del Proyecto -->
+        <div class="border-b border-border-subtle/60 pb-2 mt-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-brand-brown">
+            Paso 3: Perfil Técnico del Proyecto
+          </h4>
+        </div>
+
+        <TextField
+          id="opportunityName"
+          name="opportunityName"
+          label="Nombre de la Oportunidad / Empresa"
+          placeholder="Ej. Residencial Las Lomas / Inversiones Norte S.L."
+          type="text"
+        />
+
+        <div class="flex flex-col gap-2.5">
+          <label class="text-sm font-semibold text-text-primary select-none">
+            Modalidad Requerida
+          </label>
+          <div class="flex flex-col gap-3">
+            <Radio
+              name="modality"
+              value="deuda"
+              label="Crédito Privado / Deuda"
+              checked
+            />
+            <Radio
+              name="modality"
+              value="equity"
+              label="Alianzas de Capital / Equity"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <label class="text-sm font-semibold text-text-primary select-none">
+            Rango de Capital Requerido (en Euros)
+          </label>
+          <div class="flex flex-col gap-3">
+            <Radio
+              name="capitalRange"
+              value="hasta_500k"
+              label="Hasta 500k €"
+              checked
+            />
+            <Radio
+              name="capitalRange"
+              value="500k_1.5m"
+              label="500k a 1.5M €"
+            />
+            <Radio
+              name="capitalRange"
+              value="mas_1.5m"
+              label="Más de 1.5M €"
+            />
+          </div>
+        </div>
+
+        <TextAreaField
+          id="projectSummary"
+          name="projectSummary"
+          label="Resumen Ejecutivo de la Oportunidad"
+          placeholder="Describe brevemente la operación..."
+          helperText="Ubicación, estado urbanístico, uso previsto o colateral disponible. Máximo 300 palabras."
+          rows={4}
+        />
+
+        {/* Lógica de subida de PDF/dossier comentada temporalmente:
+        <FileUpload
+          id="projectDocument"
+          name="projectDocument"
+          label="Documentación / Dossier del Proyecto (Opcional)"
+          helperText="Formatos: PDF, Word, Excel (máx. 50 MB)"
+          accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
+        />
+        */}
+
+        <Button type="submit" text="Enviar Solicitud" class="w-full sm:w-auto self-start mt-2 px-6 py-2.5" />
+      </div>
+
+    </form>
+  </SectionContent>
+  
+</Section>
+
+<script>
+  import { actions } from "astro:actions";
+
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const stepLegal = document.getElementById("step-legal");
+  const stepContent = document.getElementById("step-content");
+  const checkFunds = document.getElementById("legalPrivateFunds") as HTMLInputElement | null;
+  const checkConfidentiality = document.getElementById("legalConfidentiality") as HTMLInputElement | null;
+  const btnToStep2 = document.getElementById("btn-to-step-2") as HTMLButtonElement | null;
+  const btnBackToStep1 = document.getElementById("btn-back-to-step-1") as HTMLButtonElement | null;
+
+  function updateStep1Validation() {
+    const isCompleted = Boolean(checkFunds?.checked && checkConfidentiality?.checked);
+    if (!btnToStep2) return;
+
+    btnToStep2.disabled = !isCompleted;
+    if (isCompleted) {
+      btnToStep2.classList.remove("cursor-not-allowed", "bg-brand-brown/40", "text-brand-white/70");
+      btnToStep2.classList.add("cursor-pointer", "bg-button-fill-primary", "text-button-text-primary", "hover:opacity-95");
+    } else {
+      btnToStep2.classList.add("cursor-not-allowed", "bg-brand-brown/40", "text-brand-white/70");
+      btnToStep2.classList.remove("cursor-pointer", "bg-button-fill-primary", "text-button-text-primary", "hover:opacity-95");
+    }
+  }
+
+  checkFunds?.addEventListener("change", updateStep1Validation);
+  checkConfidentiality?.addEventListener("change", updateStep1Validation);
+
+  btnToStep2?.addEventListener("click", () => {
+    if (!checkFunds?.checked || !checkConfidentiality?.checked) return;
+    stepLegal?.classList.add("hidden");
+    stepContent?.classList.remove("hidden");
+    stepContent?.classList.add("flex");
+  });
+
+  btnBackToStep1?.addEventListener("click", () => {
+    stepContent?.classList.add("hidden");
+    stepContent?.classList.remove("flex");
+    stepLegal?.classList.remove("hidden");
+  });
+
+  form?.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    if (!form) return;
+
+    const formData = new FormData(form);
+    console.log("FormData:", Object.fromEntries(formData));
+
+    const res = await actions.request(formData);
+    console.log("Respuesta servidor:", res);
+  });
+</script>
+

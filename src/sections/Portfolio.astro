@@ -1,0 +1,117 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeader from "@/components/layout/SectionHeader.astro";
+import SectionContent from "@/components/layout/SectionContent.astro";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardMedia,
+  CardTag,
+  CardTitle,
+} from "@card";
+import { capitalize } from "@/utils/capitalize";
+
+import CalleSagasta from "../assets/images/calle-sagasta-33.jpg";
+
+const projects = [
+  {
+    id: "calle-sagasta",
+    tag: "Impar prime living opportunity fund i, FICC",
+    title: "Doctor Cortezo 15",
+    image: CalleSagasta,
+    type: "Deuda",
+    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "calle-sagasta",
+    tag: "Impar prime living opportunity fund i, FICC",
+    title: "Doctor Cortezo 15",
+    image: CalleSagasta,
+    type: "Deuda",
+    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "calle-sagasta",
+    tag: "Impar prime living opportunity fund i, FICC",
+    title: "Doctor Cortezo 15",
+    image: CalleSagasta,
+    type: "Deuda",
+    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "calle-sagasta",
+    tag: "Impar prime living opportunity fund i, FICC",
+    title: "Doctor Cortezo 15",
+    image: CalleSagasta,
+    type: "Deuda",
+    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "calle-sagasta",
+    tag: "Impar prime living opportunity fund i, FICC",
+    title: "Doctor Cortezo 15",
+    image: CalleSagasta,
+    type: "Deuda",
+    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "calle-sagasta",
+    tag: "Impar prime living opportunity fund i, FICC",
+    title: "Doctor Cortezo 15",
+    image: CalleSagasta,
+    type: "Deuda",
+    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+];
+---
+
+<Section id="portfolio">
+  <SectionHeader align="center" tag="nuestros proyectos" title="dejamos una huella alla donde vamos.">
+    Reflejamos una disciplina constante en la seleccion y estructuracion de capital desplegando y gestionando recursos en proyectos residenciales, corporativos y operaciones corporativas en las ubicaciones mas exigentes de Madrid y Cataluña, consolidando un historial de ejecucion caracterizado por el rigor, la preservacion patrimonial y la generacion de valor real.
+  </SectionHeader>
+
+  <SectionContent>
+    {projects.map(project => (
+      <Card variant="ghost">
+        <CardMedia alt={project.id} image={project.image} />
+        <CardContent>
+          <CardHeader>
+            <CardTag size="sm">{project.tag}</CardTag>
+            <CardTitle>{project.title}</CardTitle>
+          </CardHeader>
+          <div>
+            <p>Tipo de inversión: {project.type}</p>
+            <p>{capitalize(project.date)}</p>
+            <p>Madrid - España</p>
+          </div>
+        </CardContent>
+      </Card>
+    ))
+  }
+  </SectionContent>
+</Section>

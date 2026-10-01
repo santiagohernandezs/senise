@@ -1,14 +1,132 @@
 ---
 import Section from "@/components/layout/Section.astro";
 import SectionHeader from "@/components/layout/SectionHeader.astro";
+import SectionContent from "@/components/layout/SectionContent.astro";
+import Switch from "@/components/ui/Switch.astro";
+import { Card, CardContent, CardTitle, CardDescription } from "@card";
+import Flower from "@/components/ui/svg/Flower.astro";
+
+const services = {
+  deuda: [
+    {
+      title: "Prestamos senior",
+      description:
+        "Financiacion directa (First Lien) para la adquisision de suelo, desarrollo de obra nueva o reposicionamiento de activos inmobiliarios.",
+    },
+    {
+      title: "Financiamiento mezzanine",
+      description:
+        "Absorbe los gaps de liquidez entre la deuda bancaria tradicional y el equity exigido, optimizado de manera directa el ROE.",
+    },
+    {
+      title: "Creditos puente",
+      description:
+        "Aportan liquidez inmediata respaldada por colaterales inmobiliarios, permitiendo ejecutar adquisiciones, licitaciones o reposicionamientos de activos legales.",
+    },
+  ],
+  equity: [
+    {
+      title: "Joint Ventures",
+      description:
+        "Inyectamos el capital de desarrollo manteniendo al promotor local al frente de la operación, bajo esquemas de éxito plenamente alineados.",
+    },
+    {
+      title: "Desarrollo patrimonial",
+      description:
+        "Fortalecemos el balance de tu promoción mediante posiciones prioritarias en flujos de caja, ideal para desarrolladores que buscan crecer sin ceder el control de su compañía.",
+    },
+    {
+      title: "Oportunidades especiales",
+      description:
+        "Inversión táctica en activos con alto potencial de revalorización y ventajas competitivas tangibles.",
+    },
+  ],
+};
 ---
 
-<Section id="services">
-<SectionHeader align="center" tag="nuestros servicios" title="Del valor a los turnise, el metodo senise">
-Priorizamos la resiliencia y el crecimiento generacional por encima
-de la especulación a corto plazo. Analizamos activos con fosos defensivos sólidos y
-capacidad de generación de caja, construyendo una cartera robusta mediante la
-combinación coordinada de crédito y activos reales.
+<Section id="services" direction="column">
+  <SectionHeader align="center" tag="nuestros servicios" title="Del valor a los turnise, el metodo senise">
+    Priorizamos la resiliencia y el crecimiento generacional por encima
+    de la especulación a corto plazo. Analizamos activos con fosos defensivos sólidos y
+    capacidad de generación de caja, construyendo una cartera robusta mediante la
+    combinación coordinada de crédito y activos reales.
   </SectionHeader>
 
+  <div class="mx-auto">
+    <Switch />
+  </div>
+
+  <div id="services-deuda" class="w-full">
+    <SectionContent>
+      {services.deuda.map((item, index) => (
+        <div class:list={["animate-card-in", `stagger-${index + 1}`, "h-full flex flex-col"]}>
+          <Card variant="ghost" icon={Flower}>
+            <CardContent>
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </CardContent>
+          </Card>
+        </div>
+      ))}
+    </SectionContent>
+  </div>
+
+  <div id="services-equity" class="w-full hidden">
+    <SectionContent>
+      {services.equity.map((item, index) => (
+        <div class:list={["animate-card-in", `stagger-${index + 1}`, "h-full flex flex-col"]}>
+          <Card variant="ghost" icon={Flower}>
+            <CardContent>
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </CardContent>
+          </Card>
+        </div>
+      ))}
+    </SectionContent>
+  </div>
 </Section>
+
+<script>
+  import { displayMode } from "@/store";
+
+  const deudaContainer = document.getElementById("services-deuda");
+  const equityContainer = document.getElementById("services-equity");
+
+  displayMode.subscribe((currentMode) => {
+    if (currentMode === "deuda") {
+      deudaContainer?.classList.remove("hidden");
+      equityContainer?.classList.add("hidden");
+    } else {
+      equityContainer?.classList.remove("hidden");
+      deudaContainer?.classList.add("hidden");
+    }
+  });
+</script>
+
+<style>
+  @keyframes cardIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-card-in {
+    animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .stagger-1 {
+    animation-delay: 0ms;
+  }
+  .stagger-2 {
+    animation-delay: 45ms;
+  }
+  .stagger-3 {
+    animation-delay: 90ms;
+  }
+</style>

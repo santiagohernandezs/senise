@@ -2,49 +2,58 @@
 import Section from "@layout/Section.astro";
 import SectionHeader from "@layout/SectionHeader.astro";
 import SectionContent from "@layout/SectionContent.astro";
-import Card from "@card/Card.astro";
-import CardContent from "@card/CardContent.astro";
-import CardTag from "@card/CardTag.astro";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTag,
+  CardTitle,
+  CardDescription,
+} from "@card";
 ---
 
-<Section id="about" direction="column">
+<Section id="about" direction="column" class="bg-building">
   <SectionHeader title="¿Quienes Somos?">
     <p class="w-1/2 font-bold">Un Family Office independiente dedicado a preservar el patrimonio a través de inversiones inmobiliarias con valor real.</p>
 
     <p class="w-1/2">Somos una oficina de gestión patrimonial boutique e independiente, concebida bajo una visión familiar y fiexible. Actuamos con capital propio de manera ágil y directa, enfocados en respaldar proyectos selectos con especial arraigo en el sector inmobiliario, convirtiéndonos en un socio estratégico y de absoluta confianza para nuestros aliados comerciales.</p>
   </SectionHeader>
 
-  <SectionContent>
+  <SectionContent cols={2}>
     <Card variant="primary">
       <CardContent>
-        <CardTag size="lg">
-          Mision
-        </CardTag>
-        <h3 class="font-bold">Impulsar proyectos inmobiliarios que generen valor tangible y sostenible a lo largo de las generaciones</h3>
-        <p>
+        <CardHeader>
+          <CardTag size="lg">
+            Mision
+          </CardTag>
+          <CardTitle class="text-xl md:text-2xl font-bold">Impulsar proyectos inmobiliarios que generen valor tangible y sostenible a lo largo de las generaciones</CardTitle>
+        </CardHeader>
+        <CardDescription>
           Preservar, potenciar y expandir el legado de nuestro grupo familiar a través de
           inversiones directas y estratégicas en el sector inmobiliario español. Operando con
           recursos propios y bajo una estructura privada, aportamos soluciones ágiles de Deuda y
           Equity a promotores y operadores que comparten nuestros valores de excelencia y
           ejecución.
-        </p>
+        </CardDescription>
       </CardContent>
     </Card>
 
 
     <Card variant="primary">
       <CardContent>
-        <CardTag size="lg">
-          Vision
-        </CardTag>
-        <h3 class="font-bold">Impulsar proyectos inmobiliarios que generen valor tangible y sostenible a lo largo de las generaciones</h3>
-        <p>
+        <CardHeader>
+          <CardTag size="lg">
+            Vision
+          </CardTag>
+          <CardTitle class="text-xl md:text-2xl font-bold">Impulsar proyectos inmobiliarios que generen valor tangible y sostenible a lo largo de las generaciones</CardTitle>
+        </CardHeader>
+        <CardDescription>
           Preservar, potenciar y expandir el legado de nuestro grupo familiar a través de
           inversiones directas y estratégicas en el sector inmobiliario español. Operando con
           recursos propios y bajo una estructura privada, aportamos soluciones ágiles de Deuda y
           Equity a promotores y operadores que comparten nuestros valores de excelencia y
           ejecución.
-        </p>
+        </CardDescription>
       </CardContent>
     </Card>
   </SectionContent>
