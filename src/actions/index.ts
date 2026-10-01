@@ -1,5 +1,6 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro/zod";
+import { Resend } from "resend";
 import { generateContactEmailHtml } from "@/templates/contactEmail";
 
 export const server = {
@@ -58,29 +59,28 @@ export const server = {
 
 			if (resendApiKey) {
 				try {
+					const resend = new Resend(resendApiKey);
+
 					const recipient =
 						(context.locals as any)?.runtime?.env?.CONTACT_RECIPIENT_EMAIL ||
 						"santiagooheernandez@gmail.com";
 
 					const emailHtml = generateContactEmailHtml(emailData);
 
-					const response = await fetch("https://api.resend.com/emails", {
-						method: "POST",
-						headers: {
-							Authorization: `Bearer ${resendApiKey}`,
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
+					const { data: resendData, error: resendError } =
+						await resend.emails.send({
 							from: "Senise Capital <onboarding@resend.dev>",
 							to: [recipient],
-							reply_to: emailData.email,
+							replyTo: emailData.email,
 							subject: `Nueva Oportunidad: ${emailData.opportunityName}`,
 							html: emailHtml,
-						}),
-					});
+						});
 
-					const result = await response.json();
-					console.log("Respuesta de Resend:", result);
+					if (resendError) {
+						console.error("Error devuelto por Resend:", resendError);
+					} else {
+						console.log("Correo enviado con éxito por Resend:", resendData);
+					}
 				} catch (err) {
 					console.error("Error al enviar a Resend:", err);
 				}
