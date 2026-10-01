@@ -143,12 +143,3 @@
     linear-gradient(to right, color-mix(in srgb, var(--color-brand-brown) 6%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in srgb, var(--color-brand-brown) 6%, transparent) 1px, transparent 1px);
 }
-
-.bg-building {
-  background-color: var(--color-surface-canvas);
-  background-image: url("../assets/images/bulding.jpg");
-  background-size: fit;
-  background-position: right;
-  background-repeat: no-repeat;
-}
-
