@@ -13,14 +13,43 @@ import {
 import { capitalize } from "@/utils/capitalize";
 
 import CalleSagasta from "../assets/images/calle-sagasta-33.jpg";
+import Costanilla from "../assets/images/costanilla-de-sampedro.jpg";
+import Cortezo from "../assets/images/doctor-cortezo.jpg";
+import Engracia from "../assets/images/santa-engracia.jpg";
+import Terramar from "../assets/images/terramar-sitges.jpg";
+import Socimi from "../assets/images/vbare-socimi.jpg";
 
 const projects = [
   {
     id: "calle-sagasta",
+    tag: "Impar prime alternative investment II, SICC, S.A.",
+    title: "Calle Sagasta 31-33",
+    image: CalleSagasta,
+    type: "Equity",
+    date: new Date("4/1/2023").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "costanilla-de-sampedro",
+    tag: "Costanilla impar living, S.L.",
+    title: "Constanilla de Sampredo 10",
+    image: Costanilla,
+    type: "Deuda",
+    date: new Date("2/1/2025").toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+    }),
+    location: "Madrid - España",
+  },
+  {
+    id: "doctor-cortezo",
     tag: "Impar prime living opportunity fund i, FICC",
     title: "Doctor Cortezo 15",
-    image: CalleSagasta,
-    type: "Deuda",
+    image: Cortezo,
+    type: "Equity",
     date: new Date("8/1/2023").toLocaleDateString("es-ES", {
       month: "long",
       year: "numeric",
@@ -28,60 +57,36 @@ const projects = [
     location: "Madrid - España",
   },
   {
-    id: "calle-sagasta",
-    tag: "Impar prime living opportunity fund i, FICC",
-    title: "Doctor Cortezo 15",
-    image: CalleSagasta,
-    type: "Deuda",
-    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+    id: "santa-engracia",
+    tag: "Impar prime alternative investment fund, FICC",
+    title: "Santa Engracia 84",
+    image: Engracia,
+    type: "Equity",
+    date: new Date("1/1/2024").toLocaleDateString("es-ES", {
       month: "long",
       year: "numeric",
     }),
     location: "Madrid - España",
   },
   {
-    id: "calle-sagasta",
-    tag: "Impar prime living opportunity fund i, FICC",
-    title: "Doctor Cortezo 15",
-    image: CalleSagasta,
+    id: "terramar-sitges",
+    tag: "Global homes bcn 2022, S.L.",
+    title: "Terramar Sitges",
+    image: Terramar,
     type: "Deuda",
-    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+    date: new Date("7/1/2025").toLocaleDateString("es-ES", {
       month: "long",
       year: "numeric",
     }),
-    location: "Madrid - España",
+    location: "Barcelona - España",
   },
   {
-    id: "calle-sagasta",
-    tag: "Impar prime living opportunity fund i, FICC",
-    title: "Doctor Cortezo 15",
-    image: CalleSagasta,
-    type: "Deuda",
-    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
-      month: "long",
-      year: "numeric",
-    }),
-    location: "Madrid - España",
-  },
-  {
-    id: "calle-sagasta",
-    tag: "Impar prime living opportunity fund i, FICC",
-    title: "Doctor Cortezo 15",
-    image: CalleSagasta,
-    type: "Deuda",
-    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
-      month: "long",
-      year: "numeric",
-    }),
-    location: "Madrid - España",
-  },
-  {
-    id: "calle-sagasta",
-    tag: "Impar prime living opportunity fund i, FICC",
-    title: "Doctor Cortezo 15",
-    image: CalleSagasta,
-    type: "Deuda",
-    date: new Date("8/1/2023").toLocaleDateString("es-ES", {
+    id: "vbare-socimi",
+    tag: "Singular prime investment SICC II, S.A.",
+    title: "Vbare Socimi",
+    image: Socimi,
+    type: "Equity",
+    date: new Date("11/1/2024").toLocaleDateString("es-ES", {
       month: "long",
       year: "numeric",
     }),
