@@ -1,0 +1,66 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"textarea"> {
+  label: string;
+  error?: string;
+  helperText?: string;
+  textareaClass?: string;
+}
+
+const {
+  label,
+  id: idProp,
+  name,
+  required = false,
+  rows = 4,
+  error,
+  helperText,
+  class: className = "",
+  textareaClass = "",
+  ...attr
+} = Astro.props;
+
+// Garantiza que label e input siempre estén asociados
+const inputId = idProp || (name ? `field-${name}` : undefined);
+const inputName = name || idProp;
+---
+
+<div class:list={["flex flex-col gap-1.5 w-full", className]}>
+  <label for={inputId} class="text-sm font-semibold text-text-primary select-none">
+    {label}
+    {required && <span class="text-brand-rose ml-0.5">*</span>}
+  </label>
+
+  <textarea
+    id={inputId}
+    name={inputName}
+    rows={rows}
+    required={required}
+    aria-invalid={error ? "true" : undefined}
+    aria-describedby={error && inputId ? `${inputId}-error` : undefined}
+    class:list={[
+      "w-full px-3.5 py-2.5 rounded-sm text-sm text-text-primary transition-all duration-200 resize-y",
+      "bg-input-bg border placeholder:text-input-placeholder",
+      "focus:outline-none focus:ring-1",
+      error
+        ? "border-status-error focus:border-status-error focus:ring-status-error/20"
+        : "border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:ring-ring-focus/20",
+      "disabled:opacity-50 disabled:cursor-not-allowed",
+      textareaClass,
+    ]}
+    {...attr}
+  ></textarea>
+
+  {error && (
+    <p id={`${inputId}-error`} class="text-xs text-status-error font-medium">
+      {error}
+    </p>
+  )}
+
+  {helperText && !error && (
+    <p class="text-xs text-text-secondary">
+      {helperText}
+    </p>
+  )}
+</div>

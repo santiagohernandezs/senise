@@ -4,16 +4,72 @@ import { capitalize } from "../../utils/capitalize";
 interface Props {
   title: string;
   value: number;
+  color?: string;
 }
 
-const { title, value } = Astro.props;
+const { title, value, color = "bg-brand-brown" } = Astro.props;
 const barWidth = Math.min(Math.max(value, 0), 100);
 ---
 
-<div>
-  <div class="flex justify-between">
-    <p>{capitalize(title)}</p>
-    <p>{value}%</p>
+<div class="chart-bar flex flex-col gap-2" data-target={barWidth} data-value={value}>
+  <div class="flex justify-between items-baseline">
+    <p class="text-xl md:text-2xl font-bold text-text-primary">{capitalize(title)}</p>
+    <p class="chart-value text-xl md:text-2xl font-bold text-text-primary">0%</p>
   </div>
-  <div style={`width: ${barWidth}%`} class="h-5 bg-blue-600 rounded-sm transition-all duration-300"></div>
+  <div
+    class:list={[
+      "chart-fill h-6 rounded-sm transition-[width] duration-1000 ease-out w-0",
+      color,
+    ]}
+  ></div>
 </div>
+
+<script>
+  function animateCounter(element: HTMLElement, target: number, duration: number = 1000) {
+    let startTime: number | null = null;
+    const hasDecimals = target % 1 !== 0;
+
+    function step(currentTime: number) {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = target * easeOut;
+
+      element.textContent = `${hasDecimals ? current.toFixed(1) : Math.round(current)}%`;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const container = entry.target as HTMLElement;
+          const fill = container.querySelector(".chart-fill") as HTMLElement;
+          const counter = container.querySelector(".chart-value") as HTMLElement;
+
+          const targetWidth = container.dataset.target;
+          const targetValue = parseFloat(container.dataset.value || "0");
+
+          if (fill && targetWidth) {
+            fill.style.width = `${targetWidth}%`;
+          }
+
+          if (counter) {
+            animateCounter(counter, targetValue, 1200);
+          }
+
+          obs.unobserve(container);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  document.querySelectorAll(".chart-bar").forEach((el) => observer.observe(el));
+</script>
