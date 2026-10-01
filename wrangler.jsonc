@@ -1,13 +1,14 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
-	"compatibility_date": "2026-08-04",
-	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "landing",
-	"main": "@astrojs/cloudflare/entrypoints/server",
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
-	},
+	"compatibility_date": "2026-08-04",
+	"compatibility_flags": ["nodejs_compat"],
+	"r2_buckets": [
+		{
+			"binding": "DOCUMENTS_BUCKET",
+			"bucket_name": "senise-dossiers"
+		}
+	],
 	"observability": {
 		"enabled": true
 	}
