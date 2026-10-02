@@ -4,11 +4,12 @@
   /* ===================================================
      1. TOKENS PRIMITIVOS (Paleta base y Tipografía)
      =================================================== */
-  --font-sans: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Public Sans Variable", "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Colores de Marca Senise */
   --color-brand-white: #F9F6F5;
   --color-brand-brown: #41382f;
+  --color-brand-taupe: #948b80;
   --color-brand-cream: #f6f4f0;
   --color-brand-rose: #d6b8a8;
   --color-brand-green: #2d4a3e;

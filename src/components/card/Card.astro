@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "ghost" | "wine" | "green" | "taupe" | "brown";
   class?: string;
   className?: string;
   icon?: (_props: any) => any;
@@ -20,7 +20,13 @@ const className = classProp || classNameProp || "";
     "flex flex-col gap-6 p-6 flex-1",
     {
       "bg-card-fill-primary border border-card-border-primary text-card-desc-primary [--card-title-color:var(--color-card-title-primary)] [--card-tag-color:var(--color-card-tag-primary)] [--card-desc-color:var(--color-card-desc-primary)] [--card-icon-color:var(--color-card-icon-primary)]":
-        variant === "primary",
+        variant === "primary" || variant === "brown",
+      "bg-brand-taupe border border-transparent text-white/80 [--card-title-color:var(--color-text-inverse)] [--card-tag-color:var(--color-brand-cream)] [--card-desc-color:color-mix(in_srgb,var(--color-text-inverse)_80%,transparent)] [--card-icon-color:var(--color-brand-cream)]":
+        variant === "taupe",
+      "bg-brand-wine border border-transparent text-white/80 [--card-title-color:var(--color-text-inverse)] [--card-tag-color:var(--color-brand-rose)] [--card-desc-color:color-mix(in_srgb,var(--color-text-inverse)_80%,transparent)] [--card-icon-color:var(--color-brand-rose)]":
+        variant === "wine",
+      "bg-brand-green border border-transparent text-white/80 [--card-title-color:var(--color-text-inverse)] [--card-tag-color:var(--color-brand-cream)] [--card-desc-color:color-mix(in_srgb,var(--color-text-inverse)_80%,transparent)] [--card-icon-color:var(--color-brand-cream)]":
+        variant === "green",
       "bg-card-fill-ghost border border-card-border-ghost text-card-desc-ghost [--card-title-color:var(--color-card-title-ghost)] [--card-tag-color:var(--color-card-tag-ghost)] [--card-desc-color:var(--color-card-desc-ghost)] [--card-icon-color:var(--color-card-icon-ghost)]":
         variant === "ghost",
     },
