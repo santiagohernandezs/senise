@@ -1,0 +1,86 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://senisecapital.com";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": "Senise Capital",
+      "description": "Single Family Office especializado en capital privado e inversiones inmobiliarias en España.",
+      "inLanguage": "es",
+      "publisher": {
+        "@id": `${siteUrl}/#organization`
+      }
+    },
+    {
+      "@type": ["FinancialService", "Organization"],
+      "@id": `${siteUrl}/#organization`,
+      "name": "Senise Capital",
+      "legalName": "Senise Capital, S.L.",
+      "url": siteUrl,
+      "logo": `${siteUrl}/favicon.svg`,
+      "image": `${siteUrl}/favicon.svg`,
+      "description": "Single Family Office y vehículo ágil de capital privado que inyecta recursos propios en proyectos inmobiliarios a través de soluciones de Deuda y Equity.",
+      "email": "legal@senisecapital.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle de Serrano, 45, Piso 1 Ofc. 03",
+        "addressLocality": "Madrid",
+        "addressRegion": "Comunidad de Madrid",
+        "postalCode": "28001",
+        "addressCountry": "ES"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Comunidad de Madrid"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Cataluña"
+        },
+        {
+          "@type": "Country",
+          "name": "España"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com",
+        "https://x.com"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Soluciones de Inversión Inmobiliaria",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "FinancialProduct",
+              "name": "Financiación de Deuda Privada",
+              "description": "Préstamos senior (First Lien), financiamiento mezzanine y créditos puente para promotores inmobiliarios."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "FinancialProduct",
+              "name": "Coinversión en Equity Inmobiliario",
+              "description": "Joint ventures y desarrollo patrimonial para proyectos y promociones inmobiliarias."
+            }
+          }
+        ]
+      }
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,8 +1,10 @@
 ---
 import "../styles/global.css";
+import "@fontsource-variable/public-sans";
 import CookieBanner from "../components/CookieBanner.astro";
 import Navbar from "@/components/layout/Navbar.astro";
 import Footer from "@/components/layout/Footer.astro";
+import SchemaOrg from "@/components/seo/SchemaOrg.astro";
 
 const { title } = Astro.props;
 ---
@@ -14,10 +16,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<title>{title}</title>
-		<!-- Google Fonts: Public Sans -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<SchemaOrg />
 	</head>
 	<body class="bg-surface-canvas min-h-screen flex flex-col text-text-primary font-sans">
 		<Navbar />
