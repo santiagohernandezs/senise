@@ -24,6 +24,7 @@ const projects = [
     id: "calle-sagasta",
     tag: "Impar prime alternative investment II, SICC, S.A.",
     title: "Calle Sagasta 31-33",
+    alt: "Rehabilitación y promoción residencial prime en Calle Sagasta 31-33, Chamberí, Madrid - Inversión Equity Senise Capital",
     image: CalleSagasta,
     type: "Equity",
     date: new Date("4/1/2023").toLocaleDateString("es-ES", {
@@ -35,7 +36,8 @@ const projects = [
   {
     id: "costanilla-de-sampedro",
     tag: "Costanilla impar living, S.L.",
-    title: "Constanilla de Sampredo 10",
+    title: "Costanilla de Sampedro 10",
+    alt: "Financiación de deuda privada para desarrollo residencial en Costanilla de Sampedro 10, Madrid - Senise Capital",
     image: Costanilla,
     type: "Deuda",
     date: new Date("2/1/2025").toLocaleDateString("es-ES", {
@@ -48,6 +50,7 @@ const projects = [
     id: "doctor-cortezo",
     tag: "Impar prime living opportunity fund i, FICC",
     title: "Doctor Cortezo 15",
+    alt: "Inversión inmobiliaria de equity en Calle Doctor Cortezo 15, Centro de Madrid - Senise Capital",
     image: Cortezo,
     type: "Equity",
     date: new Date("8/1/2023").toLocaleDateString("es-ES", {
@@ -60,6 +63,7 @@ const projects = [
     id: "santa-engracia",
     tag: "Impar prime alternative investment fund, FICC",
     title: "Santa Engracia 84",
+    alt: "Activo residencial prime en Calle Santa Engracia 84, Chamberí, Madrid - Inversión Equity Senise Capital",
     image: Engracia,
     type: "Equity",
     date: new Date("1/1/2024").toLocaleDateString("es-ES", {
@@ -72,6 +76,7 @@ const projects = [
     id: "terramar-sitges",
     tag: "Global homes bcn 2022, S.L.",
     title: "Terramar Sitges",
+    alt: "Financiación alternativa de proyecto residencial Terramar en Sitges, Barcelona - Senise Capital",
     image: Terramar,
     type: "Deuda",
     date: new Date("7/1/2025").toLocaleDateString("es-ES", {
@@ -84,6 +89,7 @@ const projects = [
     id: "vbare-socimi",
     tag: "Singular prime investment SICC II, S.A.",
     title: "Vbare Socimi",
+    alt: "Inversión corporativa y posicionamiento en cartera residencial Vbare Socimi - Senise Capital",
     image: Socimi,
     type: "Equity",
     date: new Date("11/1/2024").toLocaleDateString("es-ES", {
@@ -96,14 +102,21 @@ const projects = [
 ---
 
 <Section id="portfolio">
-  <SectionHeader align="center" tag="nuestros proyectos" title="dejamos una huella alla donde vamos.">
-    Reflejamos una disciplina constante en la seleccion y estructuracion de capital desplegando y gestionando recursos en proyectos residenciales, corporativos y operaciones corporativas en las ubicaciones mas exigentes de Madrid y Cataluña, consolidando un historial de ejecucion caracterizado por el rigor, la preservacion patrimonial y la generacion de valor real.
+  <SectionHeader align="center" tag="nuestros proyectos" title="dejamos una huella allá donde vamos.">
+    Los proyectos expuestos reflejan la trayectoria de
+    análisis, coinversión y asignación de capital realizados por nuestra oficina patrimonial en
+    el mercado inmobiliario desde 2013. Se hace constar explícitamente que la gran mayoría
+    de estas inversiones han sido canalizadas a través de nuestra participación estratégica en
+    fondos y vehículos especializados de distintos operadores de primer nivel. Estas
+    menciones se exponen con fines estrictamente institucionales para ilustrar los criterios de
+    selección de activos propios y no constituyen una comercialización ni oferta pública de
+    dichos vehículos.
   </SectionHeader>
 
   <SectionContent>
     {projects.map(project => (
       <Card variant="ghost">
-        <CardMedia alt={project.id} image={project.image} />
+        <CardMedia alt={project.alt} image={project.image} />
         <CardContent>
           <CardHeader>
             <CardTag size="sm">{project.tag}</CardTag>
@@ -112,7 +125,7 @@ const projects = [
           <div>
             <p>Tipo de inversión: {project.type}</p>
             <p>{capitalize(project.date)}</p>
-            <p>Madrid - España</p>
+            <p>{project.location}</p>
           </div>
         </CardContent>
       </Card>

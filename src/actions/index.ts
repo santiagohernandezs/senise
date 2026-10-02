@@ -52,10 +52,7 @@ export const server = {
 				projectSummary: data.projectSummary || "Sin resumen ejecutivo",
 			};
 
-			const resendApiKey =
-				(context.locals as any)?.runtime?.env?.RESEND_KEY ||
-				import.meta.env.RESEND_KEY ||
-				process.env.RESEND_KEY;
+			const resendApiKey = import.meta.env.RESEND_KEY || process.env.RESEND_KEY;
 
 			if (resendApiKey) {
 				try {
@@ -71,7 +68,6 @@ export const server = {
 						await resend.emails.send({
 							from: "Senise Capital <onboarding@resend.dev>",
 							to: [recipient],
-							replyTo: emailData.email,
 							subject: `Nueva Oportunidad: ${emailData.opportunityName}`,
 							html: emailHtml,
 						});
@@ -85,10 +81,7 @@ export const server = {
 					console.error("Error al enviar a Resend:", err);
 				}
 			} else {
-				console.log(
-					"Datos listos para Resend (sin RESEND_KEY):",
-					emailData,
-				);
+				console.log("Datos listos para Resend (sin RESEND_KEY):", emailData);
 			}
 
 			return {

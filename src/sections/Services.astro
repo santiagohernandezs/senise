@@ -7,40 +7,54 @@ import { Card, CardContent, CardTitle, CardDescription } from "@card";
 import Flower from "@/components/ui/svg/Flower.astro";
 
 const services = {
-  deuda: [
-    {
-      title: "Prestamos senior",
-      description:
-        "Financiacion directa (First Lien) para la adquisision de suelo, desarrollo de obra nueva o reposicionamiento de activos inmobiliarios.",
-    },
-    {
-      title: "Financiamiento mezzanine",
-      description:
-        "Absorbe los gaps de liquidez entre la deuda bancaria tradicional y el equity exigido, optimizado de manera directa el ROE.",
-    },
-    {
-      title: "Creditos puente",
-      description:
-        "Aportan liquidez inmediata respaldada por colaterales inmobiliarios, permitiendo ejecutar adquisiciones, licitaciones o reposicionamientos de activos legales.",
-    },
-  ],
-  equity: [
-    {
-      title: "Joint Ventures",
-      description:
-        "Inyectamos el capital de desarrollo manteniendo al promotor local al frente de la operación, bajo esquemas de éxito plenamente alineados.",
-    },
-    {
-      title: "Desarrollo patrimonial",
-      description:
-        "Fortalecemos el balance de tu promoción mediante posiciones prioritarias en flujos de caja, ideal para desarrolladores que buscan crecer sin ceder el control de su compañía.",
-    },
-    {
-      title: "Oportunidades especiales",
-      description:
-        "Inversión táctica en activos con alto potencial de revalorización y ventajas competitivas tangibles.",
-    },
-  ],
+  deuda: {
+    title: "Crédito Privado (Deuda)",
+    subtitle:
+      "Financiación alternativa adaptada a la velocidad de tus activos.",
+    description:
+      "Estructuramos soluciones de financiación a medida, aportando certeza y rapidez mediante la originación de crédito privado garantizado por colaterales tangibles. Permitimos a promotores, inversores y <em>sponsors</em> ejecutar operaciones corporativas y desarrollos inmobiliarios sin comprometer sus plazos operativos.",
+    items: [
+      {
+        title: "Préstamos senior",
+        description:
+          "Financiación directa (First Lien) para la adquisición de suelo, desarrollo de obra nueva o reposicionamiento de activos inmobiliarios.",
+      },
+      {
+        title: "Financiamiento mezzanine",
+        description:
+          "Absorbe los gaps de liquidez entre la deuda bancaria tradicional y el equity exigido, optimizando de manera directa el ROE.",
+      },
+      {
+        title: "Créditos puente",
+        description:
+          "Aportan liquidez inmediata respaldada por colaterales inmobiliarios, permitiendo ejecutar adquisiciones, licitaciones o reposicionamientos de activos legales.",
+      },
+    ],
+  },
+  equity: {
+    title: "Alianzas de Capital (Equity)",
+    subtitle:
+      "Capital inteligente y coinversión para desarrollos de alto impacto.",
+    description:
+      "No actuamos como simples proveedores de fondos; nos involucramos como socios estratégicos. Alineamos nuestros intereses con los del operador aportando solvencia financiera y estructuras flexibles:",
+    items: [
+      {
+        title: "Joint Ventures",
+        description:
+          "Inyectamos el capital de desarrollo manteniendo al promotor local al frente de la operación, bajo esquemas de éxito plenamente alineados.",
+      },
+      {
+        title: "Desarrollo patrimonial",
+        description:
+          "Fortalecemos el balance de tu promoción mediante posiciones prioritarias en flujos de caja, ideal para desarrolladores que buscan crecer sin ceder el control de su compañía.",
+      },
+      {
+        title: "Oportunidades especiales",
+        description:
+          "Inversión táctica en activos con alto potencial de revalorización y ventajas competitivas tangibles.",
+      },
+    ],
+  },
 };
 ---
 
@@ -56,10 +70,17 @@ const services = {
     <Switch />
   </div>
 
-  <div id="services-deuda" class="w-full">
-    <SectionContent>
-      {services.deuda.map((item, index) => (
-        <div class:list={["animate-card-in", `stagger-${index + 1}`, "h-full flex flex-col"]}>
+  <div id="services-deuda" class="w-full flex gap-10">
+    <SectionContent class="flex-1" cols={3}>
+    <div class="flex flex-col gap-3 max-w-3xl animate-card-in">
+      <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
+        {services.deuda.subtitle}
+      </h3>
+      <p class="text-sm md:text-base text-text-secondary leading-relaxed" set:html={services.deuda.description} />
+    </div>
+
+      {services.deuda.items.map((item, index) => (
+      <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
           <Card variant="ghost" icon={Flower}>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
@@ -71,10 +92,17 @@ const services = {
     </SectionContent>
   </div>
 
-  <div id="services-equity" class="w-full hidden">
-    <SectionContent>
-      {services.equity.map((item, index) => (
-        <div class:list={["animate-card-in", `stagger-${index + 1}`, "h-full flex flex-col"]}>
+  <div id="services-equity" class="w-full flex-col gap-10 hidden">
+    <SectionContent class="flex-1" cols={3}>
+    <div class="flex flex-col gap-3 max-w-3xl animate-card-in">
+      <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
+        {services.equity.subtitle}
+      </h3>
+      <p class="text-sm md:text-base text-text-secondary leading-relaxed" set:html={services.equity.description} />
+    </div>
+
+      {services.equity.items.map((item, index) => (
+      <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
           <Card variant="ghost" icon={Flower}>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
