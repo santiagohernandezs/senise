@@ -6,7 +6,15 @@ import Navbar from "@/components/layout/Navbar.astro";
 import Footer from "@/components/layout/Footer.astro";
 import SchemaOrg from "@/components/seo/SchemaOrg.astro";
 
-const { title } = Astro.props;
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const {
+	title,
+	description = "Single Family Office especializado en capital privado e inversiones inmobiliarias en España. Soluciones ágiles de Deuda y Equity para promotores y proyectos de alto potencial.",
+} = Astro.props;
 ---
 
 <html class="scroll-smooth" lang="es">
@@ -16,6 +24,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<title>{title}</title>
+		<meta name="description" content={description} />
 		<SchemaOrg />
 	</head>
 	<body class="bg-surface-canvas min-h-screen flex flex-col text-text-primary font-sans">
