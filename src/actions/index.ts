@@ -1,93 +1,120 @@
-import { defineAction } from "astro:actions";
+import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
 import { Resend } from "resend";
-import { generateContactEmailHtml } from "@/templates/contactEmail";
+import {
+	generateUserConfirmationEmailHtml,
+	getUserConfirmationSubject,
+} from "@/templates/confirmationEmail";
+import {
+	type ContactEmailData,
+	generateContactEmailHtml,
+} from "@/templates/contactEmail";
+
+const contactSchema = z.object({
+	legalPrivateFunds: z.preprocess(
+		(val) => val === "on" || val === "true" || val === true,
+		z.literal(true),
+	),
+	legalConfidentiality: z.preprocess(
+		(val) => val === "on" || val === "true" || val === true,
+		z.literal(true),
+	),
+	fullName: z.string().min(1),
+	role: z.string().optional(),
+	email: z.email(),
+	telf: z.string().min(1),
+	opportunityName: z.string().optional(),
+	modality: z.string().optional(),
+	capitalRange: z.string().optional(),
+	projectSummary: z.string().optional(),
+});
+
+type ContactInput = z.infer<typeof contactSchema>;
+
+const modalityLabels: Record<string, string> = {
+	deuda: "Crédito Privado / Deuda",
+	equity: "Alianzas de Capital / Equity",
+};
+
+const capitalRangeLabels: Record<string, string> = {
+	hasta_500k: "Hasta 500.000 €",
+	"500k_1.5m": "500.000 € a 1.500.000 €",
+	"mas_1.5m": "Más de 1.500.000 €",
+};
+
+function formatEmailData(data: ContactInput): ContactEmailData {
+	return {
+		fullName: data.fullName,
+		role: data.role || "No especificado",
+		email: data.email,
+		telf: data.telf,
+		opportunityName: data.opportunityName || "No indicada",
+		modality:
+			(data.modality && modalityLabels[data.modality]) ||
+			data.modality ||
+			"No especificada",
+		capitalRange:
+			(data.capitalRange && capitalRangeLabels[data.capitalRange]) ||
+			data.capitalRange ||
+			"No especificado",
+		projectSummary: data.projectSummary || "Sin resumen ejecutivo",
+	};
+}
 
 export const server = {
 	request: defineAction({
 		accept: "form",
-		input: z.object({
-			legalPrivateFunds: z.preprocess(
-				(val) => val === "on" || val === "true" || val === true,
-				z.literal(true),
-			),
-			legalConfidentiality: z.preprocess(
-				(val) => val === "on" || val === "true" || val === true,
-				z.literal(true),
-			),
-			fullName: z.string(),
-			role: z.string().optional(),
-			email: z.email(),
-			telf: z.string(),
-			opportunityName: z.string().optional(),
-			modality: z.string().optional(),
-			capitalRange: z.string().optional(),
-			projectSummary: z.string().optional(),
-		}),
-		handler: async (data, context) => {
-			console.log("Solicitud recibida en servidor:", {
-				...data,
-			});
+		input: contactSchema,
+		handler: async (data) => {
+			const emailData = formatEmailData(data);
+			const resendApiKey = import.meta.env.RESEND_KEY;
+			const senderAddress = import.meta.env.SENDER_ADDRESS;
+			const recipientAddress = import.meta.env.RECIVER_ADDRESS;
+			const noreplyAddress = import.meta.env.NOREPLY_ADDRESS;
 
-			const emailData = {
-				fullName: data.fullName,
-				role: data.role || "No especificado",
-				email: data.email,
-				telf: data.telf,
-				opportunityName: data.opportunityName || "No indicada",
-				modality:
-					data.modality === "deuda"
-						? "Crédito Privado / Deuda"
-						: data.modality === "equity"
-							? "Alianzas de Capital / Equity"
-							: data.modality || "No especificada",
-				capitalRange:
-					data.capitalRange === "hasta_500k"
-						? "Hasta 500.000 €"
-						: data.capitalRange === "500k_1.5m"
-							? "500.000 € a 1.500.000 €"
-							: data.capitalRange === "mas_1.5m"
-								? "Más de 1.500.000 €"
-								: data.capitalRange || "No especificado",
-				projectSummary: data.projectSummary || "Sin resumen ejecutivo",
-			};
+			if (!resendApiKey) {
+				console.warn(
+					"RESEND_KEY ausente. Modo simulación activado:",
+					emailData,
+				);
+				return {
+					success: true,
+					message: "Solicitud simulada con éxito",
+				};
+			}
 
-			const resendApiKey = import.meta.env.RESEND_KEY || process.env.RESEND_KEY;
+			const resend = new Resend(resendApiKey);
 
-			if (resendApiKey) {
-				try {
-					const resend = new Resend(resendApiKey);
+			const { error: resendError } = await resend.batch.send([
+				{
+					from: senderAddress,
+					to: [recipientAddress],
+					replyTo: emailData.email,
+					subject: `Nueva Oportunidad: ${emailData.opportunityName || "Sin título"}`,
+					html: generateContactEmailHtml(emailData),
+				},
+				{
+					from: noreplyAddress,
+					to: [emailData.email],
+					subject: getUserConfirmationSubject(emailData.opportunityName),
+					html: generateUserConfirmationEmailHtml({
+						fullName: emailData.fullName,
+						opportunityName: emailData.opportunityName,
+					}),
+				},
+			]);
 
-					const recipient =
-						(context.locals as any)?.runtime?.env?.CONTACT_RECIPIENT_EMAIL ||
-						"santiagooheernandez@gmail.com";
-
-					const emailHtml = generateContactEmailHtml(emailData);
-
-					const { data: resendData, error: resendError } =
-						await resend.emails.send({
-							from: "Senise Capital <onboarding@resend.dev>",
-							to: [recipient],
-							subject: `Nueva Oportunidad: ${emailData.opportunityName}`,
-							html: emailHtml,
-						});
-
-					if (resendError) {
-						console.error("Error devuelto por Resend:", resendError);
-					} else {
-						console.log("Correo enviado con éxito por Resend:", resendData);
-					}
-				} catch (err) {
-					console.error("Error al enviar a Resend:", err);
-				}
-			} else {
-				console.log("Datos listos para Resend (sin RESEND_KEY):", emailData);
+			if (resendError) {
+				console.error("Error devuelto por Resend:", resendError);
+				throw new ActionError({
+					code: "BAD_REQUEST",
+					message: resendError.message,
+				});
 			}
 
 			return {
 				success: true,
 				message: "Solicitud procesada con éxito",
-				// documentKey: uploadedDocumentKey,
 			};
 		},
 	}),
