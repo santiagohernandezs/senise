@@ -10,6 +10,8 @@ import {
 	generateContactEmailHtml,
 } from "@/templates/contactEmail";
 
+import { env as cfEnv } from "cloudflare:workers";
+
 const contactSchema = z.object({
 	legalPrivateFunds: z.preprocess(
 		(val) => val === "on" || val === "true" || val === true,
@@ -67,20 +69,18 @@ export const server = {
 		input: contactSchema,
 		handler: async (data, context) => {
 			const emailData = formatEmailData(data);
-			const runtimeEnv = (context.locals as any)?.runtime?.env;
-
 			const resendApiKey =
-				runtimeEnv?.RESEND_KEY ||
+				(cfEnv as any)?.RESEND_KEY ||
 				import.meta.env.RESEND_KEY ||
 				process.env.RESEND_KEY;
 			const senderAddress =
-				runtimeEnv?.SENDER_ADDRESS ||
+				(cfEnv as any)?.SENDER_ADDRESS ||
 				import.meta.env.SENDER_ADDRESS;
 			const recipientAddress =
-				runtimeEnv?.RECIVER_ADDRESS ||
+				(cfEnv as any)?.RECIVER_ADDRESS ||
 				import.meta.env.RECIVER_ADDRESS;
 			const noreplyAddress =
-				runtimeEnv?.NOREPLY_ADDRESS ||
+				(cfEnv as any)?.NOREPLY_ADDRESS ||
 				import.meta.env.NOREPLY_ADDRESS;
 
 			if (!resendApiKey) {
