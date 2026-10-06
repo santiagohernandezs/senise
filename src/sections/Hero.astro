@@ -1,6 +1,8 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import { Section, SectionContent } from "@layout";
+
+const heroVideoUrl = import.meta.env.PUBLIC_HERO_VIDEO_URL;
 ---
 
 <Section id="hero">
@@ -22,7 +24,7 @@ import { Section, SectionContent } from "@layout";
   </SectionContent>
 
   <video autoplay muted loop playsinline width="100%">
-    <source src="https://media.senisecapital.com/videos/senise-hero-video.mp4" type="video/mp4"/>
+    <source src={heroVideoUrl} type="video/mp4"/>
   </video>
 
 </Section>

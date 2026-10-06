@@ -15,6 +15,7 @@
 	"vars": {
 		"NOREPLY_ADDRESS": "noreply@senisecapital.com",
 		"RECIVER_ADDRESS": "santiagooheernandez@gmail.com",
-		"SENDER_ADDRESS": "notificaciones@senisecapital.com"
+		"SENDER_ADDRESS": "notificaciones@senisecapital.com",
+		"PUBLIC_HERO_VIDEO_URL": "https://media.senisecapital.com/videos/senise-hero-video.mp4"
 	}
 }
