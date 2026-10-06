@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant?: "primary" | "ghost" | "wine" | "green" | "taupe" | "brown";
+  variant?: "primary" | "ghost" | "wine" | "green" | "taupe" | "brown" | "cream";
   class?: string;
   className?: string;
   icon?: (_props: any) => any;
@@ -29,6 +29,8 @@ const className = classProp || classNameProp || "";
         variant === "green",
       "bg-card-fill-ghost border border-card-border-ghost text-card-desc-ghost [--card-title-color:var(--color-card-title-ghost)] [--card-tag-color:var(--color-card-tag-ghost)] [--card-desc-color:var(--color-card-desc-ghost)] [--card-icon-color:var(--color-card-icon-ghost)]":
         variant === "ghost",
+      "bg-brand-cream border border-border-subtle text-card-desc-ghost hover:border-brand-brown/30 transition-colors duration-200 [--card-title-color:var(--color-card-title-ghost)] [--card-tag-color:var(--color-brand-brown)] [--card-desc-color:var(--color-card-desc-ghost)] [--card-icon-color:var(--color-brand-brown)]":
+        variant === "cream",
     },
     className,
   ]}

@@ -81,7 +81,7 @@ const services = {
 
       {services.deuda.items.map((item, index) => (
       <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
-          <Card variant="ghost" icon={Flower}>
+          <Card variant="cream" icon={Flower}>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
@@ -103,7 +103,7 @@ const services = {
 
       {services.equity.items.map((item, index) => (
       <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
-          <Card variant="ghost" icon={Flower}>
+          <Card variant="cream" icon={Flower}>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>

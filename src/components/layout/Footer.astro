@@ -1,13 +1,20 @@
 ---
+import { Image } from "astro:assets";
+import logoImg from "@/assets/images/logo.png";
 ---
 
 <footer class="w-full border-t border-border-subtle bg-brand-white">
   <div class="max-w-300 mx-auto px-4 xl:px-0 py-10 md:py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
     
     <!-- Logo & Lema -->
-    <div class="flex flex-col gap-1.5">
-      <a href="/" class="text-2xl md:text-[26px] font-bold tracking-tight text-text-primary hover:opacity-90 transition-opacity select-none">
-        SeniseCapital
+    <div class="flex flex-col gap-2">
+      <a href="/" class="flex items-center hover:opacity-90 transition-opacity select-none" aria-label="Senise Capital">
+        <Image
+          src={logoImg}
+          alt="Senise Capital"
+          class="h-7 md:h-8 w-auto object-contain"
+          loading="lazy"
+        />
       </a>
       <span class="text-[10px] md:text-[11px] tracking-widest uppercase font-semibold text-text-secondary select-none">
         SMART CAPITAL. PROYECTOS CON VALOR
