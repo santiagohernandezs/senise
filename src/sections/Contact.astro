@@ -252,16 +252,6 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
           Hemos recibido la información de su oportunidad. Nuestro comité de inversión revisará la documentación con estricta confidencialidad corporativa y nos pondremos en contacto a la mayor brevedad.
         </p>
       </div>
-
-      <div class="pt-4 border-t border-border-subtle/40 w-full flex items-center justify-between">
-        <button
-          type="button"
-          id="btn-reset-form"
-          class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-sm bg-button-fill-primary text-button-text-primary hover:opacity-90 transition-opacity cursor-pointer"
-        >
-          Enviar otra propuesta
-        </button>
-      </div>
     </div>
   </SectionContent>
   
@@ -281,7 +271,6 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
   const btnToStep2 = document.getElementById("btn-to-step-2") as HTMLButtonElement | null;
   const btnBackToStep1 = document.getElementById("btn-back-to-step-1") as HTMLButtonElement | null;
   const btnSubmit = document.getElementById("btn-submit") as HTMLButtonElement | null;
-  const btnResetForm = document.getElementById("btn-reset-form") as HTMLButtonElement | null;
 
   function updateStep1Validation() {
     const isCompleted = Boolean(checkFunds?.checked && checkConfidentiality?.checked);
@@ -376,25 +365,6 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
       btnSubmit.classList.add("cursor-pointer");
       btnSubmit.innerHTML = originalBtnContent;
     }
-  });
-
-  btnResetForm?.addEventListener("click", () => {
-    // Ocultar mensaje de éxito
-    stepSuccess?.classList.add("hidden");
-    stepSuccess?.classList.remove("flex");
-
-    // Restaurar a Paso 1
-    stepContent?.classList.add("hidden");
-    stepContent?.classList.remove("flex");
-    stepLegal?.classList.remove("hidden");
-
-    // Restablecer checkboxes y validación
-    if (checkFunds) checkFunds.checked = false;
-    if (checkConfidentiality) checkConfidentiality.checked = false;
-    updateStep1Validation();
-
-    // Mostrar formulario nuevamente
-    form?.classList.remove("hidden");
   });
 </script>
 
