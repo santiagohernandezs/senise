@@ -211,10 +211,58 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
         />
         */}
 
-        <Button type="submit" text="Enviar Solicitud" class="w-full sm:w-auto self-start mt-2 px-6 py-2.5" />
+        <!-- Mensaje de Error en el Envío -->
+        <div
+          id="form-error"
+          class="hidden items-center gap-3 p-3.5 rounded-sm bg-status-error-subtle border border-status-error-border text-status-error text-xs font-medium"
+        >
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+          <span id="form-error-text">Ocurrió un error al enviar el formulario. Por favor, inténtelo de nuevo.</span>
+        </div>
+
+        <Button
+          id="btn-submit"
+          type="submit"
+          text="Enviar Solicitud"
+          class="w-full sm:w-auto self-start mt-2 px-6 py-2.5"
+        />
       </div>
 
     </form>
+
+    <!-- Pantalla de Éxito / Confirmación -->
+    <div
+      id="step-success"
+      class="hidden flex-col items-start gap-6 p-8 sm:p-10 bg-brand-cream border border-border-subtle/80 rounded-sm"
+    >
+      <div class="flex items-center justify-center w-12 h-12 rounded-full bg-status-success-subtle border border-status-success-border text-status-success">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+        </svg>
+      </div>
+
+      <div class="flex flex-col gap-2 max-w-lg">
+        <span class="text-xs uppercase tracking-widest font-bold text-brand-green">Confirmación</span>
+        <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-brown">
+          Solicitud enviada con éxito
+        </h3>
+        <p class="text-sm text-text-secondary leading-relaxed">
+          Hemos recibido la información de su oportunidad. Nuestro comité de inversión revisará la documentación con estricta confidencialidad corporativa y nos pondremos en contacto a la mayor brevedad.
+        </p>
+      </div>
+
+      <div class="pt-4 border-t border-border-subtle/40 w-full flex items-center justify-between">
+        <button
+          type="button"
+          id="btn-reset-form"
+          class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-sm bg-button-fill-primary text-button-text-primary hover:opacity-90 transition-opacity cursor-pointer"
+        >
+          Enviar otra propuesta
+        </button>
+      </div>
+    </div>
   </SectionContent>
   
 </Section>
@@ -225,10 +273,15 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
   const form = document.getElementById("contact-form") as HTMLFormElement | null;
   const stepLegal = document.getElementById("step-legal");
   const stepContent = document.getElementById("step-content");
+  const stepSuccess = document.getElementById("step-success");
+  const formError = document.getElementById("form-error");
+  const formErrorText = document.getElementById("form-error-text");
   const checkFunds = document.getElementById("legalPrivateFunds") as HTMLInputElement | null;
   const checkConfidentiality = document.getElementById("legalConfidentiality") as HTMLInputElement | null;
   const btnToStep2 = document.getElementById("btn-to-step-2") as HTMLButtonElement | null;
   const btnBackToStep1 = document.getElementById("btn-back-to-step-1") as HTMLButtonElement | null;
+  const btnSubmit = document.getElementById("btn-submit") as HTMLButtonElement | null;
+  const btnResetForm = document.getElementById("btn-reset-form") as HTMLButtonElement | null;
 
   function updateStep1Validation() {
     const isCompleted = Boolean(checkFunds?.checked && checkConfidentiality?.checked);
@@ -262,13 +315,86 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
 
   form?.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    if (!form) return;
+    if (!form || !btnSubmit) return;
 
-    const formData = new FormData(form);
-    console.log("FormData:", Object.fromEntries(formData));
+    // Ocultar mensaje de error previo
+    formError?.classList.add("hidden");
+    formError?.classList.remove("flex");
 
-    const res = await actions.request(formData);
-    console.log("Respuesta servidor:", res);
+    // Estado cargando
+    const originalBtnContent = btnSubmit.innerHTML;
+    btnSubmit.disabled = true;
+    btnSubmit.classList.add("opacity-70", "cursor-not-allowed");
+    btnSubmit.classList.remove("cursor-pointer");
+    btnSubmit.innerHTML = `
+      <span class="inline-flex items-center gap-2">
+        <svg class="animate-spin h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Enviando solicitud...
+      </span>
+    `;
+
+    try {
+      const formData = new FormData(form);
+      const { data, error } = await actions.request(formData);
+
+      if (error) {
+        if (formErrorText) {
+          formErrorText.textContent = error.message || "Ha ocurrido un error al procesar la solicitud. Por favor, inténtelo de nuevo.";
+        }
+        formError?.classList.remove("hidden");
+        formError?.classList.add("flex");
+        btnSubmit.disabled = false;
+        btnSubmit.classList.remove("opacity-70", "cursor-not-allowed");
+        btnSubmit.classList.add("cursor-pointer");
+        btnSubmit.innerHTML = originalBtnContent;
+        return;
+      }
+
+      if (data?.success) {
+        // Ocultar formulario y mostrar pantalla de éxito
+        form.classList.add("hidden");
+        form.reset();
+        stepSuccess?.classList.remove("hidden");
+        stepSuccess?.classList.add("flex");
+
+        // Desplazar a la pantalla de éxito
+        stepSuccess?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    } catch (err) {
+      console.error("Error al enviar el formulario:", err);
+      if (formErrorText) {
+        formErrorText.textContent = "Error de conexión. Por favor, compruebe su conexión e inténtelo de nuevo.";
+      }
+      formError?.classList.remove("hidden");
+      formError?.classList.add("flex");
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.classList.remove("opacity-70", "cursor-not-allowed");
+      btnSubmit.classList.add("cursor-pointer");
+      btnSubmit.innerHTML = originalBtnContent;
+    }
+  });
+
+  btnResetForm?.addEventListener("click", () => {
+    // Ocultar mensaje de éxito
+    stepSuccess?.classList.add("hidden");
+    stepSuccess?.classList.remove("flex");
+
+    // Restaurar a Paso 1
+    stepContent?.classList.add("hidden");
+    stepContent?.classList.remove("flex");
+    stepLegal?.classList.remove("hidden");
+
+    // Restablecer checkboxes y validación
+    if (checkFunds) checkFunds.checked = false;
+    if (checkConfidentiality) checkConfidentiality.checked = false;
+    updateStep1Validation();
+
+    // Mostrar formulario nuevamente
+    form?.classList.remove("hidden");
   });
 </script>
 
