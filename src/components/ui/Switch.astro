@@ -19,9 +19,10 @@ const { class: className = "" } = Astro.props;
     id="btn-deuda"
     role="tab"
     aria-selected="true"
-    class="px-6 py-2 text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer text-text-secondary"
+    class="px-5 sm:px-6 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer text-text-secondary"
   >
-    Deuda
+    <span class="sm:hidden">Deuda Privada</span>
+    <span class="hidden sm:inline">Deuda Privada Patrimonial</span>
   </button>
 
   <button
@@ -29,9 +30,10 @@ const { class: className = "" } = Astro.props;
     id="btn-equity"
     role="tab"
     aria-selected="false"
-    class="px-6 py-2 text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer text-text-secondary"
+    class="px-5 sm:px-6 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer text-text-secondary"
   >
-    Equity
+    <span class="sm:hidden">Coinversión / Equity</span>
+    <span class="hidden sm:inline">Coinversión y Capital (Equity)</span>
   </button>
 </div>
 

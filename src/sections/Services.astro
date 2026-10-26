@@ -8,50 +8,50 @@ import Flower from "@/components/ui/svg/Flower.astro";
 
 const services = {
   deuda: {
-    title: "Crédito Privado (Deuda)",
-    subtitle:
-      "Financiación alternativa adaptada a la velocidad de tus activos.",
+    vertical: "Vertical A",
+    title: "Deuda Privada Patrimonial",
+    subtitle: "Soluciones de liquidez adaptadas a los tiempos de tu activo.",
     description:
-      "Estructuramos soluciones de financiación a medida, aportando certeza y rapidez mediante la originación de crédito privado garantizado por colaterales tangibles. Permitimos a promotores, inversores y <em>sponsors</em> ejecutar operaciones corporativas y desarrollos inmobiliarios sin comprometer sus plazos operativos.",
+      "Estructuramos operaciones de financiación alternativa respaldadas por colaterales tangibles, aportando certeza operativa para ejecutar proyectos y desarrollos sin comprometer los plazos del negocio. La adaptación a cada escenario es nuestra prioridad.",
     items: [
       {
-        title: "Préstamos senior",
+        title: "Capital para Adquisición y Desarrollo",
         description:
-          "Financiación directa (First Lien) para la adquisición de suelo, desarrollo de obra nueva o reposicionamiento de activos inmobiliarios.",
+          "Aportación de recursos para compra de suelo, obra nueva, rehabilitación o reposicionamiento.",
       },
       {
-        title: "Financiamiento mezzanine",
+        title: "Soluciones de Liquidez Temporal",
         description:
-          "Absorbe los gaps de liquidez entre la deuda bancaria tradicional y el equity exigido, optimizando de manera directa el ROE.",
+          "Cobertura de necesidades operativas y puentes de liquidez en proyectos estructurados.",
       },
       {
-        title: "Créditos puente",
+        title: "Estructuras a Medida",
         description:
-          "Aportan liquidez inmediata respaldada por colaterales inmobiliarios, permitiendo ejecutar adquisiciones, licitaciones o reposicionamientos de activos legales.",
+          "Flexibilidad operativa alineada con los flujos de caja proyectados del activo.",
       },
     ],
   },
   equity: {
-    title: "Alianzas de Capital (Equity)",
-    subtitle:
-      "Capital inteligente y coinversión para desarrollos de alto impacto.",
+    vertical: "Vertical B",
+    title: "Coinversión y Capital (Equity)",
+    subtitle: "Capital estratégico para desarrollos de alto impacto.",
     description:
-      "No actuamos como simples proveedores de fondos; nos involucramos como socios estratégicos. Alineamos nuestros intereses con los del operador aportando solvencia financiera y estructuras flexibles:",
+      "No operamos como un mero financiador; nos involucramos como socios patrimoniales. Alineamos intereses aportando músculo financiero y estructuras totalmente flexibles:",
     items: [
       {
-        title: "Joint Ventures (JV) a Nivel de Proyecto",
+        title: "Joint Ventures",
         description:
-          "Inyectamos el capital de desarrollo manteniendo al promotor local al frente de la operación, bajo esquemas de éxito plenamente alineados.",
+          "Aportamos el capital de desarrollo manteniendo al promotor local al frente de la gestión operativa, bajo esquemas alineados.",
       },
       {
-        title: "Capital Preferente (Preferred Equity)",
+        title: "Capital Preferente",
         description:
-          "Fortalecemos el balance de tu promoción mediante posiciones prioritarias en flujos de caja, ideal para desarrolladores que buscan crecer sin ceder el control operativo de su compañía.",
+          "Una alternativa para desarrolladores que buscan escalar proyectos manteniendo la gestión de su compañía.",
       },
       {
         title: "Estrategias Value-Add",
         description:
-          "Transformamos activos inmobiliarios infravalorados o con ineficiencias mediante rehabilitaciones integrales, cambios de uso y asset management activo enfocado en la generación de rentas urbanas estables.",
+          "Inversión directa orientada al reposicionamiento y revalorización de activos inmobiliarios.",
       },
     ],
   },
@@ -59,11 +59,11 @@ const services = {
 ---
 
 <Section id="services" direction="column">
-  <SectionHeader align="center" tag="nuestros servicios" title="Del valor a los turnise, el metodo senise">
-    Priorizamos la resiliencia y el crecimiento generacional por encima
-    de la especulación a corto plazo. Analizamos activos con fosos defensivos sólidos y
-    capacidad de generación de caja, construyendo una cartera robusta mediante la
-    combinación coordinada de crédito y activos reales.
+  <SectionHeader align="center" tag="estrategias de inversión" title="Crece conmigo, El método Senise">
+    Priorizamos la solidez y el valor a largo plazo por encima de la
+    especulación a corto plazo. Analizamos activos reales con capacidad de generación de flujo,
+    estructurando nuestras inversiones mediante crédito privado patrimonial y participaciones de
+    capital.
   </SectionHeader>
 
   <div class="mx-auto">
@@ -72,12 +72,17 @@ const services = {
 
   <div id="services-deuda" class="w-full flex gap-10">
     <SectionContent class="flex-1" cols={3}>
-    <div class="flex flex-col gap-3 max-w-3xl animate-card-in">
-      <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
-        {services.deuda.subtitle}
-      </h3>
-      <p class="text-sm md:text-base text-text-secondary leading-relaxed" set:html={services.deuda.description} />
-    </div>
+      <div class="flex flex-col gap-2 max-w-3xl animate-card-in">
+        <span class="text-xs uppercase tracking-widest font-bold text-brand-wine">
+          {services.deuda.vertical}: {services.deuda.title}
+        </span>
+        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
+          {services.deuda.subtitle}
+        </h3>
+        <p class="text-sm md:text-base text-text-secondary leading-relaxed">
+          {services.deuda.description}
+        </p>
+      </div>
 
       {services.deuda.items.map((item, index) => (
       <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
@@ -94,12 +99,17 @@ const services = {
 
   <div id="services-equity" class="w-full flex-col gap-10 hidden">
     <SectionContent class="flex-1" cols={3}>
-    <div class="flex flex-col gap-3 max-w-3xl animate-card-in">
-      <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
-        {services.equity.subtitle}
-      </h3>
-      <p class="text-sm md:text-base text-text-secondary leading-relaxed" set:html={services.equity.description} />
-    </div>
+      <div class="flex flex-col gap-2 max-w-3xl animate-card-in">
+        <span class="text-xs uppercase tracking-widest font-bold text-brand-wine">
+          {services.equity.vertical}: {services.equity.title}
+        </span>
+        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
+          {services.equity.subtitle}
+        </h3>
+        <p class="text-sm md:text-base text-text-secondary leading-relaxed">
+          {services.equity.description}
+        </p>
+      </div>
 
       {services.equity.items.map((item, index) => (
       <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
