@@ -6,7 +6,8 @@ import logoImg from "@/assets/images/logo.png";
 const navLinks = [
   { label: "Conócenos", href: "/#about" },
   { label: "Valores", href: "/#values" },
-  { label: "Métricas", href: "/#metrics" },
+  { label: "Estrategias", href: "/#services" },
+  { label: "Proyectos", href: "/#portfolio" },
 ];
 ---
 
@@ -24,7 +25,7 @@ const navLinks = [
     </a>
 
     <!-- Desktop Nav Links -->
-    <nav class="hidden md:flex items-center gap-8 lg:gap-10">
+    <nav class="hidden md:flex items-center gap-6 lg:gap-8">
       {navLinks.map((link) => (
         <a
           href={link.href}
@@ -39,7 +40,7 @@ const navLinks = [
     <div class="hidden md:block">
       <Button
         href="/#contact"
-        text="Contactanos"
+        text="Contáctanos"
         variant="primary"
         class="px-6 py-2.5 text-sm"
       />
@@ -79,7 +80,7 @@ const navLinks = [
     <div class="pt-2">
       <Button
         href="/#contact"
-        text="Contactanos"
+        text="Contáctanos"
         variant="primary"
         class="w-full text-center py-2.5 text-sm block"
       />

@@ -11,13 +11,20 @@ import Button from "@/components/ui/Button.astro";
 ---
 
 <Section id="contact" direction="row" class="items-start">
-  <SectionHeader class="flex-1" tag="contacto" title="hablanos de tu proyecto">
-    <p class="mb-4">Desplegamos de forma directa los recursos de nuestra oficina familiar en
-oportunidades excepcionales. Buscamos fundadores, operadores y desarrolladores que
-necesiten un socio financiero ágil, sin la burocracia de los fondos tradicionales. Si cuentas
-con un activo inmobiliario en zonas urbanas clave que requiera reposicionamiento,
-desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
-    <p>Calle de Serrano, 45, Piso 1 Ofc. 03, Salamanca, 28001 Madrid, España</p>
+  <SectionHeader class="flex-1" tag="contacto" title="Analizamos nuevos proyectos. Coinvertimos en buenas ideas.">
+    <p class="mb-4">
+      Desplegamos capital propio en oportunidades inmobiliarias excepcionales. Buscamos operadores, fundadores y desarrolladores que requieran un socio patrimonial directo, ágil y sin la complejidad procedimental de la banca o las estructuras institucionales masivas.
+    </p>
+    <p class="mb-4">
+      Si cuentas con un activo inmobiliario en ubicación estratégica que requiera reposicionamiento, desarrollo o estructura de capital: Vente, conversemos y evaluemos juntos la oportunidad.
+    </p>
+    <p class="text-xs text-text-secondary flex items-center gap-1.5 mt-2">
+      <svg class="w-4 h-4 shrink-0 text-brand-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+      Calle de Serrano, 45, Piso 1 Ofc. 03, Salamanca, 28001 Madrid, España
+    </p>
   </SectionHeader>
 
   <SectionContent class="flex-1" cols={1}>
@@ -157,13 +164,13 @@ desarrollo o financiación puente, queremos evaluar tu propuesta.</p>
             <Radio
               name="modality"
               value="deuda"
-              label="Crédito Privado / Deuda"
+              label="Deuda Privada Patrimonial"
               checked
             />
             <Radio
               name="modality"
               value="equity"
-              label="Alianzas de Capital / Equity"
+              label="Coinversión y Capital (Equity)"
             />
           </div>
         </div>
