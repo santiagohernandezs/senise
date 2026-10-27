@@ -15,6 +15,11 @@
   --color-brand-green: #2d4a3e;
   --color-brand-wine: #4a181d;
 
+  /* Colores Sobrios para Tarjetas / Acentos Suaves */
+  --color-brand-rose-muted: #e0d0d3;
+  --color-brand-taupe-muted: #d6d3ce;
+  --color-brand-green-muted: #d8dede;
+
   /* ===================================================
      2. TOKENS SEMÁNTICOS (Propósito funcional)
      =================================================== */
@@ -26,6 +31,9 @@
   --color-surface-accent: var(--color-brand-brown);
   --color-surface-accent-subtle: color-mix(in srgb, var(--color-brand-brown) 8%, transparent);
   --color-surface-disabled: var(--color-stone-200);
+  --color-surface-card-rose: var(--color-brand-rose-muted);
+  --color-surface-card-taupe: var(--color-brand-taupe-muted);
+  --color-surface-card-green: var(--color-brand-green-muted);
 
   /* Textos */
   --color-text-primary: var(--color-brand-brown);
@@ -77,6 +85,13 @@
   /* Fill / Fondo */
   --color-card-fill-primary: var(--color-surface-accent);
   --color-card-fill-ghost: transparent;
+  --color-card-fill-cream: var(--color-brand-cream);
+  --color-card-fill-rose: var(--color-brand-rose-muted);
+  --color-card-fill-taupe: var(--color-brand-taupe-muted);
+  --color-card-fill-green: var(--color-brand-green-muted);
+  --color-card-fill-rose-muted: var(--color-brand-rose-muted);
+  --color-card-fill-taupe-muted: var(--color-brand-taupe-muted);
+  --color-card-fill-green-muted: var(--color-brand-green-muted);
 
   /* Border */
   --color-card-border-primary: transparent;

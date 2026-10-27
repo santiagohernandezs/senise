@@ -8,7 +8,6 @@ import Flower from "@/components/ui/svg/Flower.astro";
 
 const services = {
   deuda: {
-    vertical: "Vertical A",
     title: "Deuda Privada Patrimonial",
     subtitle: "Soluciones de liquidez adaptadas a los tiempos de tu activo.",
     description:
@@ -18,21 +17,23 @@ const services = {
         title: "Capital para Adquisición y Desarrollo",
         description:
           "Aportación de recursos para compra de suelo, obra nueva, rehabilitación o reposicionamiento.",
+        class: "bg-card-fill-rose",
       },
       {
         title: "Soluciones de Liquidez Temporal",
         description:
           "Cobertura de necesidades operativas y puentes de liquidez en proyectos estructurados.",
+        class: "bg-card-fill-taupe",
       },
       {
         title: "Estructuras a Medida",
         description:
           "Flexibilidad operativa alineada con los flujos de caja proyectados del activo.",
+        class: "bg-card-fill-green",
       },
     ],
   },
   equity: {
-    vertical: "Vertical B",
     title: "Coinversión y Capital (Equity)",
     subtitle: "Capital estratégico para desarrollos de alto impacto.",
     description:
@@ -42,16 +43,19 @@ const services = {
         title: "Joint Ventures",
         description:
           "Aportamos el capital de desarrollo manteniendo al promotor local al frente de la gestión operativa, bajo esquemas alineados.",
+        class: "bg-card-fill-rose",
       },
       {
         title: "Capital Preferente",
         description:
           "Una alternativa para desarrolladores que buscan escalar proyectos manteniendo la gestión de su compañía.",
+        class: "bg-card-fill-taupe",
       },
       {
         title: "Estrategias Value-Add",
         description:
           "Inversión directa orientada al reposicionamiento y revalorización de activos inmobiliarios.",
+        class: "bg-card-fill-green",
       },
     ],
   },
@@ -73,8 +77,8 @@ const services = {
   <div id="services-deuda" class="w-full flex gap-10">
     <SectionContent class="flex-1" cols={3}>
       <div class="flex flex-col gap-2 max-w-3xl animate-card-in">
-        <span class="text-xs uppercase tracking-widest font-bold text-brand-wine">
-          {services.deuda.vertical}: {services.deuda.title}
+        <span class="text-sm uppercase tracking-wide font-bold text-brand-wine">
+          {services.deuda.title}
         </span>
         <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
           {services.deuda.subtitle}
@@ -86,7 +90,7 @@ const services = {
 
       {services.deuda.items.map((item, index) => (
       <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
-          <Card variant="cream" icon={Flower}>
+          <Card variant="cream" class={item.class} icon={Flower}>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
@@ -100,8 +104,8 @@ const services = {
   <div id="services-equity" class="w-full flex-col gap-10 hidden">
     <SectionContent class="flex-1" cols={3}>
       <div class="flex flex-col gap-2 max-w-3xl animate-card-in">
-        <span class="text-xs uppercase tracking-widest font-bold text-brand-wine">
-          {services.equity.vertical}: {services.equity.title}
+        <span class="text-sm uppercase tracking-wide font-bold text-brand-wine">
+          {services.equity.title}
         </span>
         <h3 class="text-xl md:text-2xl font-bold tracking-tight text-text-primary">
           {services.equity.subtitle}
@@ -113,7 +117,7 @@ const services = {
 
       {services.equity.items.map((item, index) => (
       <div class:list={["animate-card-in md:cols-start-2", `stagger-${index + 1}`, "h-full flex flex-col", {"md:col-span-2 md:col-start-2": index===2}]}>
-          <Card variant="cream" icon={Flower}>
+          <Card variant="cream" class={item.class} icon={Flower}>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
