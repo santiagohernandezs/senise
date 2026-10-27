@@ -6,24 +6,21 @@ import TextField from "@/components/ui/TextField.astro";
 import Radio from "@/components/ui/Radio.astro";
 import Checkbox from "@/components/ui/Checkbox.astro";
 import TextAreaField from "@/components/ui/TextAreaField.astro";
-// import FileUpload from "@/components/ui/FileUpload.astro";
 import Button from "@/components/ui/Button.astro";
 ---
 
-<Section id="contact" direction="row" class="items-start">
-  <SectionHeader class="flex-1" tag="contacto" title="Analizamos nuevos proyectos. Coinvertimos en buenas ideas.">
+<Section id="proyect" direction="row" class="items-start relative">
+  <div id="contact" class="absolute -top-24 pointer-events-none"></div>
+  <SectionHeader class="flex-1" tag="Presentar Proyecto" title="Analizamos nuevos proyectos. Coinvertimos en buenas ideas.">
     <p class="mb-4">
       Desplegamos capital propio en oportunidades inmobiliarias excepcionales. Buscamos operadores, fundadores y desarrolladores que requieran un socio patrimonial directo, ágil y sin la complejidad procedimental de la banca o las estructuras institucionales masivas.
     </p>
     <p class="mb-4">
       Si cuentas con un activo inmobiliario en ubicación estratégica que requiera reposicionamiento, desarrollo o estructura de capital: Vente, conversemos y evaluemos juntos la oportunidad.
     </p>
-    <p class="text-xs text-text-secondary flex items-center gap-1.5 mt-2">
-      <svg class="w-4 h-4 shrink-0 text-brand-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-      Calle de Serrano, 45, Piso 1 Ofc. 03, Salamanca, 28001 Madrid, España
+    <p class="text-lg font-semibold">Contacto</p>
+    <p class="text-text-secondary  mt-2">
+      Calle de Serrano, 45, Piso 1 Ofc. 03, Salamanca, 28001 Madrid, España <a mailto="info@senisecapital.com">info@senisecapital.com</a>
     </p>
   </SectionHeader>
 
@@ -35,12 +32,12 @@ import Button from "@/components/ui/Button.astro";
         <div class="border-b border-border-subtle/60 pb-2">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold uppercase tracking-wider text-brand-brown">
-              Paso 1: Filtro Legal de Entrada
+              Filtro Legal de Entrada
             </h3>
             <span class="text-xs text-brand-wine font-semibold">Requisito obligatorio</span>
           </div>
           <p class="text-xs text-text-secondary mt-1">
-            Casillas obligatorias interactivas. Debe marcar ambas como leídas para acceder al Paso 2.
+            Marcar ambas como leídas para continuar.
           </p>
         </div>
 
@@ -75,7 +72,7 @@ import Button from "@/components/ui/Button.astro";
             disabled
             class="px-6 py-2.5 font-semibold text-sm rounded-sm transition-all duration-200 cursor-not-allowed bg-brand-brown/40 text-brand-white/70"
           >
-            Continuar al Paso 2
+            Continuar
           </button>
         </div>
       </div>
@@ -88,7 +85,7 @@ import Button from "@/components/ui/Button.astro";
             <svg class="w-4 h-4 text-brand-brown shrink-0" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5z" clip-rule="evenodd" />
             </svg>
-            Paso 1: Filtro Legal de Entrada aceptado
+            Filtro Legal de Entrada aceptado
           </span>
           <button
             type="button"
@@ -102,7 +99,7 @@ import Button from "@/components/ui/Button.astro";
         <!-- Paso 2: Datos de Contacto Corporativo -->
         <div class="border-b border-border-subtle/60 pb-2">
           <h3 class="text-sm font-bold uppercase tracking-wider text-brand-brown">
-            Paso 2: Datos de Contacto Corporativo
+            Datos de Contacto Corporativo
           </h3>
         </div>
 
