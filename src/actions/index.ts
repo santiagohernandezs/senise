@@ -34,8 +34,8 @@ const contactSchema = z.object({
 type ContactInput = z.infer<typeof contactSchema>;
 
 const modalityLabels: Record<string, string> = {
-	deuda: "Crédito Privado / Deuda",
-	equity: "Alianzas de Capital / Equity",
+	deuda: "Deuda Privada",
+	equity: "Coinversión y Capital (Equity)",
 };
 
 const capitalRangeLabels: Record<string, string> = {

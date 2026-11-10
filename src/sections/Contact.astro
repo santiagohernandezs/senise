@@ -11,12 +11,12 @@ import Button from "@/components/ui/Button.astro";
 
 <Section id="proyect" direction="row" class="items-start relative">
   <div id="contact" class="absolute -top-24 pointer-events-none"></div>
-  <SectionHeader class="flex-1" tag="Presentar Proyecto" title="Analizamos nuevos proyectos. Coinvertimos en buenas ideas.">
+  <SectionHeader class="flex-1" tag="Presentar Proyecto" title="Exploramos nuevas oportunidades de inversión.">
     <p class="mb-4">
-      Desplegamos capital propio en oportunidades inmobiliarias excepcionales. Buscamos operadores, fundadores y desarrolladores que requieran un socio patrimonial directo, ágil y sin la complejidad procedimental de la banca o las estructuras institucionales masivas.
+      Evaluamos oportunidades de inversión inmobiliaria y empresarial, aportando capital propio mediante estructuras de financiación privada y participaciones de capital.
     </p>
     <p class="mb-4">
-      Si cuentas con un activo inmobiliario en ubicación estratégica que requiera reposicionamiento, desarrollo o estructura de capital: Vente, conversemos y evaluemos juntos la oportunidad.
+      Mantenemos un enfoque selectivo y colaborativo, estableciendo relaciones con promotores y socios estratégicos que compartan nuestra filosofía de inversión y creación de valor a largo plazo.
     </p>
     <p class="text-lg font-semibold">Contacto</p>
     <p class="text-text-secondary  mt-2">
@@ -25,14 +25,23 @@ import Button from "@/components/ui/Button.astro";
   </SectionHeader>
 
   <SectionContent class="flex-1" cols={1}>
+    <div class="mb-2">
+      <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-brown">
+        Presentar proyecto
+      </h3>
+      <p class="text-sm text-text-secondary mt-1">
+        Comparta los datos de su proyecto para que podamos valorar inicialmente su encaje con nuestra estrategia de inversión.
+      </p>
+    </div>
+
     <form id="contact-form" class="flex flex-col gap-6">
       
-      <!-- Paso 1: Filtro Legal de Entrada -->
+      <!-- Paso 1: Declaraciones previas -->
       <div id="step-legal" class="flex flex-col gap-5">
         <div class="border-b border-border-subtle/60 pb-2">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold uppercase tracking-wider text-brand-brown">
-              Filtro Legal de Entrada
+              Declaraciones previas
             </h3>
             <span class="text-xs text-brand-wine font-semibold">Requisito obligatorio</span>
           </div>
@@ -47,9 +56,9 @@ import Button from "@/components/ui/Button.astro";
             name="legalPrivateFunds"
             required={true}
           >
-            <span class="font-semibold text-text-primary text-sm">Declaración de Fondos Privados:</span>
+            <span class="font-semibold text-text-primary text-sm">Naturaleza de la actividad:</span>
             <span class="text-xs text-text-secondary mt-1 leading-relaxed">
-              Entiendo y acepto que Senise Capital, S.L. opera exclusivamente como una oficina patrimonial privada (<em>Single Family Office</em>) que despliega capital propio. Comprendo que la presentación de este proyecto se realiza de forma voluntaria para la evaluación interna de la sociedad y no implica una oferta pública, comercialización de productos financieros, ni garantía de financiación. <strong class="text-brand-wine font-semibold">(Obligatorio)</strong>
+              Declaro conocer que Senise Capital, S.L. es una sociedad de inversión patrimonial privada que opera con recursos propios. La presentación de esta oportunidad se realiza de forma voluntaria, exclusivamente para su evaluación inicial, y no implica compromiso ni garantía de financiación o inversión. <strong class="text-brand-wine font-semibold">(Obligatorio)</strong>
             </span>
           </Checkbox>
 
@@ -58,9 +67,9 @@ import Button from "@/components/ui/Button.astro";
             name="legalConfidentiality"
             required={true}
           >
-            <span class="font-semibold text-text-primary text-sm">Confidencialidad de Doble Vía:</span>
+            <span class="font-semibold text-text-primary text-sm">Autorización para compartir información:</span>
             <span class="text-xs text-text-secondary mt-1 leading-relaxed">
-              Declaro que la información y documentos que voy a suministrar son de mi propiedad o cuento con las facultades legales para compartirlos. Acepto que Senise Capital, S.L. tratará esta información con estricta confidencialidad corporativa exclusivamente para su análisis interno. <strong class="text-brand-wine font-semibold">(Obligatorio)</strong>
+              Declaro que estoy debidamente autorizado para facilitar la información relativa al proyecto y que su comunicación a Senise Capital, S.L. no vulnera derechos ni obligaciones de confidencialidad frente a terceros. La información será utilizada para evaluar la oportunidad, conforme a los términos legales y de privacidad aplicables. <strong class="text-brand-wine font-semibold">(Obligatorio)</strong>
             </span>
           </Checkbox>
         </div>
@@ -85,7 +94,7 @@ import Button from "@/components/ui/Button.astro";
             <svg class="w-4 h-4 text-brand-brown shrink-0" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5z" clip-rule="evenodd" />
             </svg>
-            Filtro Legal de Entrada aceptado
+            Declaraciones previas aceptadas
           </span>
           <button
             type="button"
@@ -96,17 +105,17 @@ import Button from "@/components/ui/Button.astro";
           </button>
         </div>
 
-        <!-- Paso 2: Datos de Contacto Corporativo -->
+        <!-- Paso 2: Datos de contacto -->
         <div class="border-b border-border-subtle/60 pb-2">
           <h3 class="text-sm font-bold uppercase tracking-wider text-brand-brown">
-            Datos de Contacto Corporativo
+            Datos de contacto
           </h3>
         </div>
 
         <TextField
           id="fullName"
           name="fullName"
-          label="Nombre y Apellidos del Solicitante"
+          label="Nombre y apellidos"
           placeholder="Ej. Alejandro Fernández"
           type="text"
           required={true}
@@ -115,7 +124,7 @@ import Button from "@/components/ui/Button.astro";
         <TextField
           id="role"
           name="role"
-          label="Cargo / Relación con el Proyecto"
+          label="Cargo o relación con el proyecto"
           placeholder="Ej. Promotor Titular, Asesor, CEO"
           type="text"
         />
@@ -123,7 +132,7 @@ import Button from "@/components/ui/Button.astro";
         <TextField
           id="email"
           name="email"
-          label="Correo Electrónico Corporativo"
+          label="Correo electrónico"
           placeholder="a.fernandez@empresa.com"
           type="email"
           required={true}
@@ -138,17 +147,17 @@ import Button from "@/components/ui/Button.astro";
           required={true}
         />
 
-        <!-- Paso 3: Perfil Técnico del Proyecto -->
+        <!-- Paso 3: Información del proyecto -->
         <div class="border-b border-border-subtle/60 pb-2 mt-2">
           <h3 class="text-xs font-bold uppercase tracking-wider text-brand-brown">
-            Paso 3: Perfil Técnico del Proyecto
+            Información del proyecto
           </h3>
         </div>
 
         <TextField
           id="opportunityName"
           name="opportunityName"
-          label="Nombre de la Oportunidad / Empresa"
+          label="Nombre del proyecto o empresa"
           placeholder="Ej. Residencial Las Lomas / Inversiones Norte S.L."
           type="text"
         />
@@ -161,7 +170,7 @@ import Button from "@/components/ui/Button.astro";
             <Radio
               name="modality"
               value="deuda"
-              label="Deuda Privada Patrimonial"
+              label="Deuda Privada"
               checked
             />
             <Radio
@@ -174,7 +183,7 @@ import Button from "@/components/ui/Button.astro";
 
         <div class="flex flex-col gap-2.5">
           <label class="text-sm font-semibold text-text-primary select-none">
-            Rango de Capital Requerido (en Euros)
+            Capital requerido (EUR)
           </label>
           <div class="flex flex-col gap-3">
             <Radio
@@ -199,7 +208,7 @@ import Button from "@/components/ui/Button.astro";
         <TextAreaField
           id="projectSummary"
           name="projectSummary"
-          label="Resumen Ejecutivo de la Oportunidad"
+          label="Resumen ejecutivo del proyecto"
           placeholder="Describe brevemente la operación..."
           helperText="Ubicación, estado urbanístico, uso previsto o colateral disponible. Máximo 300 palabras."
           rows={4}
@@ -229,7 +238,7 @@ import Button from "@/components/ui/Button.astro";
         <Button
           id="btn-submit"
           type="submit"
-          text="Enviar Solicitud"
+          text="Enviar propuesta"
           class="w-full sm:w-auto self-start mt-2 px-6 py-2.5"
         />
       </div>
@@ -250,10 +259,10 @@ import Button from "@/components/ui/Button.astro";
       <div class="flex flex-col gap-2 max-w-lg">
         <span class="text-xs uppercase tracking-widest font-bold text-brand-green">Confirmación</span>
         <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-brown">
-          Solicitud enviada con éxito
+          Propuesta recibida correctamente
         </h3>
         <p class="text-sm text-text-secondary leading-relaxed">
-          Hemos recibido la información de su oportunidad. Nuestro comité de inversión revisará la documentación con estricta confidencialidad corporativa y nos pondremos en contacto a la mayor brevedad.
+          Gracias por compartir su propuesta con Senise Capital. Nuestro equipo evaluará la información recibida y, en caso de identificar un potencial encaje con nuestra estrategia de inversión, nos pondremos en contacto para valorar los siguientes pasos.
         </p>
       </div>
     </div>
@@ -325,7 +334,7 @@ import Button from "@/components/ui/Button.astro";
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
-        Enviando solicitud...
+        Enviando propuesta...
       </span>
     `;
 
